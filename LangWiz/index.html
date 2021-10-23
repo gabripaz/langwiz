@@ -7,34 +7,146 @@
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
   <link rel="stylesheet" type="text/css" href="style/style.css" />
+  <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'>
+  
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+  
 </head>
 
 <body>
+<!--Modal-->
+<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div  class="modal-dialog" role="document">
+     <form  action="" method="get">
+    <div class="modal-content" id="boxmodal">
+      <div class="modal-header text-center">
+      <h3 class="modal-title w-100 font-weight-bold">Welcome</h3>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+           <label data-error="wrong" data-success="right" for="defaultForm-email">User Name :</label>
+          <input type="text" id="defaultForm-text" class="form-control validate" name="userName" required>
+         </div>
+
+        <div class="md-form mb-4">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <label data-error="wrong" data-success="right" for="defaultForm-pass">Password :</label>
+          <input type="password" id="defaultForm-password" class="form-control validate" name="userPassword" required>
+          
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <input type="submit" class="btn btn-default" id="login" name="Login" value="Login"/>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+<!--Modal-->
+<div class="modal fade" id="modalSignIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div  class="modal-dialog" role="document">
+     <form  action="" method="get">
+    <div class="modal-content" id="boxmodal2">
+      <div class="modal-header text-center">
+      <h3 class="modal-title w-100 font-weight-bold">Create an Account</h3>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+           <label data-error="wrong" data-success="right" for="defaultForm-email">User Name :</label>
+          <input type="text" id="defaultForm-text" class="form-control validate" name="userName" required>
+         </div>
+		 <div class="md-form mb-4">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <label data-error="wrong" data-success="right" for="defaultForm-pass">Password :</label>
+          <input type="password" id="defaultForm-password" class="form-control validate" name="userPassword" required> 
+        </div>
+		<div class="md-form mb-4">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <label data-error="wrong" data-success="right" for="defaultForm-pass"> Repeat Password :</label>
+          <input type="password" id="defaultForm-password" class="form-control validate" name="userPasswordconfirm" required> 
+        </div>
+		<div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+           <label data-error="wrong" data-success="right" for="defaultForm-email">First Name :</label>
+          <input type="text" id="defaultForm-text" class="form-control validate" name="firstName" required>
+         </div>
+		 <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+           <label data-error="wrong" data-success="right" for="defaultForm-email">Last Name :</label>
+          <input type="text" id="defaultForm-text" class="form-control validate" name="LastName" required>
+         </div>
+		 <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+           <label data-error="wrong" data-success="right" for="defaultForm-email">Mother Language :</label>
+          <input type="text" id="defaultForm-text" class="form-control validate" name="motherLang" required>
+         </div>
+		 <h5>Tell us Abbout two languages that you want to learn</h5>
+		 <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+           <label data-error="wrong" data-success="right" for="defaultForm-email">Laguage One :</label>
+          <input type="text" id="defaultForm-text" class="form-control validate" name="langone" required>
+         </div>
+		 <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+           <label data-error="wrong" data-success="right" for="defaultForm-email">Laguage two :</label>
+          <input type="text" id="defaultForm-text" class="form-control validate" name="lagtwo" >
+         </div>
+        
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <input type="submit" class="btn btn-default" id="login" name="CreateAcc" value="Create Account"/>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+
+
+
   <div id="main">
     <div id="header">
 	
 		
       <div id="logo">
-		
+		<div id="logoimgenes"></div>
         <div id="logo_text">
-			<div id="logoimg">
-			<img src="style/logo.png"/>
-			</div>
+		
           <!-- class="logo_colour", allows you to change the colour of the text -->
           <h1><a href="index.html">Lang<span class="logo_colour">Wiz</span></a></h1>
           <h2>The new way to learn a new language</h2>
+		  <div id="loginbox">
+		  <button class="buttons" data-toggle="modal" data-target="#modalLogin">Login</button>
+		  <button class="buttons" data-toggle="modal" data-target="#modalSignIn">Sign In</button>
+		  </div>
+		   <div class="clr"></div>
         </div>
       </div>
+	 
       <div id="menubar">
         <ul id="menu">
           <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
           <li class="selected"><a href="index.html">Home</a></li>
-          <li><a href="examples.html">Examples</a></li>
+          <li><a href="examples.html">How to Start</a></li>
           <li><a href="page.html">A Page</a></li>
           <li><a href="another_page.html">Another Page</a></li>
           <li><a href="contact.html">Contact Us</a></li>
         </ul>
       </div>
+
     </div>
     <div id="content_header"></div>
     <div id="site_content">
@@ -45,9 +157,9 @@
           <div class="sidebar_item">
             <!-- insert your sidebar items here -->
             <h3>Latest News</h3>
-            <h4>New Website Launched</h4>
-            <h5>February 1st, 2014</h5>
-            <p>2014 sees the redesign of our website. Take a look around and let us know what you think.<br /><a href="#">Read more</a></p>
+            <h5><strong>Now you can find friends in other countries</strong></h5>
+            <h5>October 1st, 2021</h5>
+            <p> Take a look around and let us know what you think.<br /><a href="#">Read more</a></p>
           </div>
           <div class="sidebar_base"></div>
         </div>
@@ -56,9 +168,9 @@
           <div class="sidebar_item">
             <h3>Useful Links</h3>
             <ul>
-              <li><a href="#">link 1</a></li>
-              <li><a href="#">link 2</a></li>
-              <li><a href="#">link 3</a></li>
+              <li><a href="https://translate.google.ca">Google Translate</a></li>
+              <li><a href="https://www.google.com/">Google</a></li>
+              <li><a href="https://www.google.ca/maps">Google Maps</a></li>
               <li><a href="#">link 4</a></li>
             </ul>
           </div>
@@ -80,25 +192,27 @@
       </div>
       <div id="content">
         <!-- insert the page content here -->
-        <h1>Welcome to the simplestyle_banner template</h1>
-        <p>This standards compliant, simple, fixed width website template is released as an 'open source' design (under a <a href="http://creativecommons.org/licenses/by/3.0">Creative Commons Attribution 3.0 Licence</a>), which means that you are free to download and use it for anything you want (including modifying and amending it). All I ask is that you leave the 'design from HTML5webtemplates.co.uk' link in the footer of the template, but other than that...</p>
-        <p>This template is written entirely in <strong>HTML5</strong> and <strong>CSS</strong>, and can be validated using the links in the footer.</p>
-        <p>You can view more free HTML5 web templates <a href="http://www.html5webtemplates.co.uk">here</a>.</p>
-        <p>This template is a fully functional 5 page website, with an <a href="examples.html">examples</a> page that gives examples of all the styles available with this design.</p>
-        <h2>Browser Compatibility</h2>
-        <p>This template has been tested in the following browsers:</p>
+        <h1>Welcome to <span id="langwiz">LangWiz</span></h1>
+        <p>With LangWiz you can learn and practice a new language, find new friends, share and get to know new cultures.</p>
+		<p>We already know how complicated it is to practice a new language, especially if you are in a place or surrounded by people who speak the same mother tongue as you, and despite taking language courses there comes a point where you need to put your knowledge into practice.</p>
+		<p>That is why LangWiz is created that It allows you to meet another person who speaks the language you want to improve and in turn you can help that person to know and share your language and culture. </p>
+        <h2 id="title2">It is time to learn a new language</h2>
+        <p>In this Website you can :</p>
         <ul>
-          <li>Internet Explorer 9</li>
-          <li>FireFox 25</li>
-          <li>Google Chrome 31</li>
+          <li>Explore New Cultures</li>
+          <li>Meet new frieds</li>
+          <li>Learn as many languages as you want</li>
         </ul>
       </div>
     </div>
     <div id="content_footer"></div>
     <div id="footer">
       <p><a href="index.html">Home</a> | <a href="examples.html">Examples</a> | <a href="page.html">A Page</a> | <a href="another_page.html">Another Page</a> | <a href="contact.html">Contact Us</a></p>
-      <p>Copyright &copy; simplestyle_banner | <a href="http://validator.w3.org/check?uri=referer">HTML5</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> | <a href="http://www.html5webtemplates.co.uk">HTML5 Web Templates</a></p>
+      <p>Copyright &copy;  WebServer Applications| <a href="http://validator.w3.org/check?uri=referer">HTML5</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> | </p>
     </div>
   </div>
+  
+  
+  
 </body>
 </html>
