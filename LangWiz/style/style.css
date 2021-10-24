@@ -401,8 +401,8 @@ table tr td
 	
 }
   
-
-#boxmodal2 h3,#boxmodal2 h5,#boxmodal2 label{color:#323534;}
+#boxmodal2{background-color:#DCDCDC;}
+#boxmodal2 h3,#boxmodal2 h5,#boxmodal2 label{ color:#323534;}
 
 #boxmodal2 h3, #title2,#langwiz{ font-family:'Lobster', arial, sans-serif;}
 #boxmodal2  input[type=submit],#boxmodal2  button{

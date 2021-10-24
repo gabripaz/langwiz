@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <html>
 
 <head>
@@ -12,7 +11,27 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
 
+    function validatePassword()
+    {
+    var p1 =  document.getElementById("password1").value;
+    var p2 =  document.getElementById("password2").value;
+    
+        if(p1 == p2){
+        document.getElementById("errorMatch").innerHTML="Paswords Match"; 
+        document.getElementById("errorMatch").style.color='green'; 
+        document.getElementById('createacc').disabled = false;
+        
+        }
+        else if(p1=="" && p2==""){document.getElementById("errorMatch").innerHTML=""; }
+        else{
+        document.getElementById("errorMatch").innerHTML="Paswords Not Match"; 
+        document.getElementById("errorMatch").style.color='red'; 
+        document.getElementById('createacc').disabled = true;}
+    }
+   
+</script>
 
   
 </head>
@@ -55,7 +74,7 @@
 <div class="modal fade" id="modalSignIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div  class="modal-dialog" role="document">
-     <form  action="" method="get">
+     <form  action="createaccount.php" method="get" onsubmit="validatePassword()">
     <div class="modal-content" id="boxmodal2">
       <div class="modal-header text-center">
       <h3 class="modal-title w-100 font-weight-bold">Create an Account</h3>
@@ -63,50 +82,105 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
-           <label data-error="wrong" data-success="right" for="defaultForm-email">User Name :</label>
+           <label data-error="wrong" data-success="right" for="defaultForm-text">User Name :</label>
           <input type="text" id="defaultForm-text" class="form-control validate" name="userName" required>
          </div>
-		 <div class="md-form mb-4">
-          <i class="fas fa-lock prefix grey-text"></i>
-          <label data-error="wrong" data-success="right" for="defaultForm-pass">Password :</label>
-          <input type="password" id="defaultForm-password" class="form-control validate" name="userPassword" required> 
-        </div>
-		<div class="md-form mb-4">
-          <i class="fas fa-lock prefix grey-text"></i>
-          <label data-error="wrong" data-success="right" for="defaultForm-pass"> Repeat Password :</label>
-          <input type="password" id="defaultForm-password" class="form-control validate" name="userPasswordconfirm" required> 
-        </div>
 		<div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
-           <label data-error="wrong" data-success="right" for="defaultForm-email">First Name :</label>
+           <label data-error="wrong" data-success="right" for="defaultForm-text">First Name :</label>
           <input type="text" id="defaultForm-text" class="form-control validate" name="firstName" required>
          </div>
 		 <div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
-           <label data-error="wrong" data-success="right" for="defaultForm-email">Last Name :</label>
+           <label data-error="wrong" data-success="right" for="defaultForm-text">Last Name :</label>
           <input type="text" id="defaultForm-text" class="form-control validate" name="LastName" required>
          </div>
+          <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+           <label data-error="wrong" data-success="right" for="defaultForm-email">Email :</label>
+          <input type="text" id="defaultForm-text" class="form-control validate" name="email" required>
+         </div>
+          <div class="md-form mb-5">
+         <label data-error="wrong" data-success="right" for="defaultForm-text">Country :</label>
+         <select name="countryselect" id="countryselect" class="form-control validate">
+    	   <option value=""></option>
+    	  <?php  
+    	  require_once 'configurationdb.php';
+            $sqlStmt="Select Country from location";
+            $queryId=mysqli_query($connection, $sqlStmt);
+            
+            while($rec=mysqli_fetch_array($queryId)){
+            $country=$rec["Country"];
+            ?>
+                <option value="<?=$country?>"><?=$country?></option>
+              <?php }?>
+  		  </select>
+  		  </div>
 		 <div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
            <label data-error="wrong" data-success="right" for="defaultForm-email">Mother Language :</label>
-          <input type="text" id="defaultForm-text" class="form-control validate" name="motherLang" required>
+          <select name="motherlang" id="motherlang" class="form-control validate">
+          <option value=""></option>
+          <?php  
+    	 
+            $sqlStmt="Select LangName from languages";
+            $queryId=mysqli_query($connection, $sqlStmt);
+            
+            while($rec=mysqli_fetch_array($queryId)){
+            $langName=$rec["LangName"]; ?>
+                <option value="<?=$langName?>"><?=$langName?></option>
+              <?php }?>
+          </select>
          </div>
-		 <h5>Tell us Abbout two languages that you want to learn</h5>
+		 <h5>Tell us About two languages that you want to learn</h5>
 		 <div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
            <label data-error="wrong" data-success="right" for="defaultForm-email">Laguage One :</label>
-          <input type="text" id="defaultForm-text" class="form-control validate" name="langone" required>
+          <select name="firstlang" id="motherlang" class="form-control validate">
+          <option value=""></option>
+           <?php  
+    	 
+            $sqlStmt="Select LangName from languages";
+            $queryId=mysqli_query($connection, $sqlStmt);
+            
+            while($rec=mysqli_fetch_array($queryId)){
+            $langName=$rec["LangName"]; ?>
+                <option value="<?=$langName?>"><?=$langName?></option>
+              <?php }?>
+          </select>
          </div>
 		 <div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
            <label data-error="wrong" data-success="right" for="defaultForm-email">Laguage two :</label>
-          <input type="text" id="defaultForm-text" class="form-control validate" name="lagtwo" >
+         <select name="secondlang" id="motherlang" class="form-control validate">
+          <option value=""></option>
+        <?php  
+    	 
+            $sqlStmt="Select LangName from languages";
+            $queryId=mysqli_query($connection, $sqlStmt);
+            
+            while($rec=mysqli_fetch_array($queryId)){
+            $langName=$rec["LangName"]; ?>
+                <option value="<?=$langName?>"><?=$langName?></option>
+              <?php }?>
+          </select>
          </div>
-        
-
+        <div class="md-form mb-4">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <label data-error="wrong" data-success="right" for="defaultForm-pass">Password :</label>
+          <input type="password" id="password1" class="form-control validate" name="userPassword"  onkeyup='validatePassword();' required> 
+        </div>
+		<div class="md-form mb-4">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <label data-error="wrong" data-success="right" for="defaultForm-pass"> Repeat Password :</label>
+          <input type="password" id="password2" class="form-control validate" name="userPasswordconfirm"   onkeyup='validatePassword();' required> 
+        </div>
+		<div class="md-form mb-4">
+          <span id="errorMatch"></span>
+        </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <input type="submit" class="btn btn-default" id="login" name="CreateAcc" value="Create Account"/>
+        <input type="submit" class="btn btn-default" id="createacc" name="CreateAcc" value="Create Account" />
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
