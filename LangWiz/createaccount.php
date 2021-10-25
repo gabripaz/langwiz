@@ -11,12 +11,18 @@ function getValues()
         "LName"=>$_GET["LastName"],
         "LocationID"=>1000,
         "EmailAddress"=>$_GET["email"],
+<<<<<<< HEAD
         "Photo"=>"img/default.jpg"
         
     );
         
     return $userAcc;
     
+=======
+        "Photo"=>"img/default.jpg"        
+    );        
+    return $userAcc;    
+>>>>>>> ad0e40cf73fb602b7fd348bd4ab72885bc499c48
 }
 
 function getSqlFieldsInsert($v){
@@ -26,8 +32,12 @@ function getSqlFieldsInsert($v){
     foreach($acInfo as $key=>$value){
         if(isset($value))
         {
+<<<<<<< HEAD
             $sqlStmt1 = $sqlStmt1."`{$key}`,";
             
+=======
+            $sqlStmt1 = $sqlStmt1."`{$key}`,";            
+>>>>>>> ad0e40cf73fb602b7fd348bd4ab72885bc499c48
         }
     }
     $sqlStmt1 = substr_replace($sqlStmt1, "", -1);
@@ -41,19 +51,28 @@ function getSqlFieldsInsert($v){
                     $sqlStmt2 =$sqlStmt2."'$value',";
         }
     }
+<<<<<<< HEAD
     $sqlStmt2 = substr_replace($sqlStmt2, "", -1);
     
     
     
     return "INSERT INTO `users`($sqlStmt1) VALUES ($sqlStmt2)";
     
+=======
+    $sqlStmt2 = substr_replace($sqlStmt2, "", -1); 
+    
+    return "INSERT INTO `users`($sqlStmt1) VALUES ($sqlStmt2)";
+>>>>>>> ad0e40cf73fb602b7fd348bd4ab72885bc499c48
 }   
 
 //##########################################################################################################
 if(isset($_GET['CreateAcc']))
 {
+<<<<<<< HEAD
 
    
+=======
+>>>>>>> ad0e40cf73fb602b7fd348bd4ab72885bc499c48
     $locName=$_GET["countryselect"];
     $sqlStm = "Select `LocationID` from `location` where `Country` ='$locName'";
   
@@ -65,8 +84,11 @@ if(isset($_GET['CreateAcc']))
     
     //echo "$sqlSmt";
     
+<<<<<<< HEAD
     
     
+=======
+>>>>>>> ad0e40cf73fb602b7fd348bd4ab72885bc499c48
     $queryid=mysqli_query($connection, $sqlSmt);
     
    
@@ -82,7 +104,10 @@ if(isset($_GET['CreateAcc']))
     $queryid=mysqli_query($connection, $sqlStm11);}
     
     */
+<<<<<<< HEAD
  
+=======
+>>>>>>> ad0e40cf73fb602b7fd348bd4ab72885bc499c48
 }
 
 ?>
