@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +13,7 @@
 	
 </head>
 <body>
-=======
+
 <html>
 
 <head>
@@ -27,7 +27,6 @@
 
 <body>
 
->>>>>>> ad0e40cf73fb602b7fd348bd4ab72885bc499c48
 <div id="main">
     <div id="header">
 	
@@ -40,13 +39,9 @@
           <h1><a href="index.html">Lang<span class="logo_colour">Wiz</span></a></h1>
           <h2>The new way to learn a new language</h2>
 		  <div id="loginbox">
-<<<<<<< HEAD
+
 		  <!-- ANCOR TAGS TO REMOVE AFTER -->
 		  <a href="index.php"><button class="buttons" data-toggle="modal" >Log Out</button></a>
-=======
-		  
-		  <button class="buttons" data-toggle="modal" data-target="#modalSignIn">Log Out</button>
->>>>>>> ad0e40cf73fb602b7fd348bd4ab72885bc499c48
 		  </div>
 		   <div class="clr"></div>
         </div>
@@ -64,7 +59,7 @@
       </div>
 
     </div>
-<<<<<<< HEAD
+
 
 
 
@@ -230,63 +225,3 @@
 </div>
 </body>
 </html>
-=======
-    <div id="content_header"></div>
-    <div id="site_content">
-	  <div id="sidebar_container">
-        <div class="sidebar">
-          <div class="sidebar_top"></div>
-          <div class="sidebar_item">
-            <!-- insert your sidebar items here -->
-            <h3>Latest News</h3>
-            <h5><strong>Now you can find friends in other countries</strong></h5>
-            <h5>October 1st, 2021</h5>
-            <p> Take a look around and let us know what you think.<br /><a href="#">Read more</a></p>
-          </div>
-          <div class="sidebar_base"></div>
-        </div>
-        <div class="sidebar">
-          <div class="sidebar_top"></div>
-          <div class="sidebar_item">
-            <h3>Useful Links</h3>
-            <ul>
-              <li><a href="https://translate.google.ca">Google Translate</a></li>
-              <li><a href="https://www.google.com/">Google</a></li>
-              <li><a href="https://www.google.ca/maps">Google Maps</a></li>
-              <li><a href="#">link 4</a></li>
-            </ul>
-          </div>
-          <div class="sidebar_base"></div>
-        </div>
-        <div class="sidebar">
-          <div class="sidebar_top"></div>
-          <div class="sidebar_item">
-            <h3>Search</h3>
-            <form method="post" action="#" id="search_form">
-              <p>
-                <input class="search" type="text" name="search_field" value="Enter keywords....." />
-                <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="style/search.png" alt="Search" title="Search" />
-              </p>
-            </form>
-          </div>
-          <div class="sidebar_base"></div>
-        </div>
-      </div>
-      <div id="content">
-        <!-- insert the page content here -->
-        <h1>A Page</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui.</p>
-      </div>
-    </div>
-    <div id="content_footer"></div>
-    <div id="footer">
-      <p><a href="index.html">Home</a> | <a href="examples.html">Examples</a> | <a href="page.html">A Page</a> | <a href="another_page.html">Another Page</a> | <a href="contact.html">Contact Us</a></p>
-      <p>Copyright &copy; simplestyle_banner | <a href="http://validator.w3.org/check?uri=referer">HTML5</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> | <a href="http://www.html5webtemplates.co.uk">HTML5 Web Templates</a></p>
-    </div>
-  </div>
-</body>
-</html>
->>>>>>> ad0e40cf73fb602b7fd348bd4ab72885bc499c48

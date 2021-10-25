@@ -32,11 +32,7 @@
     }
    
 </script>
-<<<<<<< HEAD:LangWiz/index.php
 
-=======
->>>>>>> ad0e40cf73fb602b7fd348bd4ab72885bc499c48:LangWiz/index.html
-  
 </head>
 
 <body>
@@ -99,7 +95,7 @@
           <input type="text" id="defaultForm-text" class="form-control validate" name="LastName" required>
          </div>
           <div class="md-form mb-5">
-<<<<<<< HEAD:LangWiz/index.php
+
           <i class="fas fa-envelope prefix grey-text"></i>
            <label data-error="wrong" data-success="right" for="defaultForm-email">Email :</label>
           <input type="text" id="defaultForm-text" class="form-control validate" name="email" required>
@@ -130,33 +126,7 @@
            <label data-error="wrong" data-success="right" for="defaultForm-email">Mother Language :</label>
           <select name="motherlang" id="motherlang" class="form-control validate">
           <option value=""></option>
-          <?php  
-=======
-          <i class="fas fa-envelope prefix grey-text"></i>
-           <label data-error="wrong" data-success="right" for="defaultForm-email">Email :</label>
-          <input type="text" id="defaultForm-text" class="form-control validate" name="email" required>
-         </div>
-          <div class="md-form mb-5">
-         <label data-error="wrong" data-success="right" for="defaultForm-text">Country :</label>
-         <select name="countryselect" id="countryselect" class="form-control validate">
-    	   <option value=""></option>
-    	  <?php  
-    	  require_once 'configurationdb.php';
-            $sqlStmt="Select Country from location";
-            $queryId=mysqli_query($connection, $sqlStmt);
             
-            while($rec=mysqli_fetch_array($queryId)){
-            $country=$rec["Country"];
-            ?>
-                <option value="<?=$country?>"><?=$country?></option>
-              <?php }?>
-  		  </select>
-  		  </div>
-		 <div class="md-form mb-5">
-          <i class="fas fa-envelope prefix grey-text"></i>
-           <label data-error="wrong" data-success="right" for="defaultForm-email">Mother Language :</label>
-          <select name="motherlang" id="motherlang" class="form-control validate">
-          <option value=""></option>
           <?php  
     	 
             $sqlStmt="Select LangName from languages";
@@ -168,44 +138,7 @@
               <?php }?>
           </select>
          </div>
-		 <h5>Tell us About two languages that you want to learn</h5>
-		 <div class="md-form mb-5">
-          <i class="fas fa-envelope prefix grey-text"></i>
-           <label data-error="wrong" data-success="right" for="defaultForm-email">Laguage One :</label>
-          <select name="firstlang" id="motherlang" class="form-control validate">
-          <option value=""></option>
-           <?php  
-    	 
-            $sqlStmt="Select LangName from languages";
-            $queryId=mysqli_query($connection, $sqlStmt);
-            
-            while($rec=mysqli_fetch_array($queryId)){
-            $langName=$rec["LangName"]; ?>
-                <option value="<?=$langName?>"><?=$langName?></option>
-              <?php }?>
-          </select>
-         </div>
-		 <div class="md-form mb-5">
-          <i class="fas fa-envelope prefix grey-text"></i>
-           <label data-error="wrong" data-success="right" for="defaultForm-email">Laguage two :</label>
-         <select name="secondlang" id="motherlang" class="form-control validate">
-          <option value=""></option>
-        <?php  
->>>>>>> ad0e40cf73fb602b7fd348bd4ab72885bc499c48:LangWiz/index.html
-    	 
-            $sqlStmt="Select LangName from languages";
-            $queryId=mysqli_query($connection, $sqlStmt);
-            
-            while($rec=mysqli_fetch_array($queryId)){
-            $langName=$rec["LangName"]; ?>
-                <option value="<?=$langName?>"><?=$langName?></option>
-              <?php }?>
-          </select>
-         </div>
-<<<<<<< HEAD:LangWiz/index.php
 		 
-=======
->>>>>>> ad0e40cf73fb602b7fd348bd4ab72885bc499c48:LangWiz/index.html
         <div class="md-form mb-4">
           <i class="fas fa-lock prefix grey-text"></i>
           <label data-error="wrong" data-success="right" for="defaultForm-pass">Password :</label>
