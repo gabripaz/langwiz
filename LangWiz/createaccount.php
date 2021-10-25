@@ -11,12 +11,9 @@ function getValues()
         "LName"=>$_GET["LastName"],
         "LocationID"=>1000,
         "EmailAddress"=>$_GET["email"],
-        "Photo"=>"img/default.jpg"
-        
-    );
-        
-    return $userAcc;
-    
+        "Photo"=>"img/default.jpg"        
+    );        
+    return $userAcc;    
 }
 
 function getSqlFieldsInsert($v){
@@ -26,8 +23,7 @@ function getSqlFieldsInsert($v){
     foreach($acInfo as $key=>$value){
         if(isset($value))
         {
-            $sqlStmt1 = $sqlStmt1."`{$key}`,";
-            
+            $sqlStmt1 = $sqlStmt1."`{$key}`,";            
         }
     }
     $sqlStmt1 = substr_replace($sqlStmt1, "", -1);
@@ -41,19 +37,14 @@ function getSqlFieldsInsert($v){
                     $sqlStmt2 =$sqlStmt2."'$value',";
         }
     }
-    $sqlStmt2 = substr_replace($sqlStmt2, "", -1);
-    
-    
+    $sqlStmt2 = substr_replace($sqlStmt2, "", -1); 
     
     return "INSERT INTO `users`($sqlStmt1) VALUES ($sqlStmt2)";
-    
 }   
 
 //##########################################################################################################
 if(isset($_GET['CreateAcc']))
 {
-
-   
     $locName=$_GET["countryselect"];
     $sqlStm = "Select `LocationID` from `location` where `Country` ='$locName'";
   
@@ -64,8 +55,6 @@ if(isset($_GET['CreateAcc']))
     $sqlSmt =getSqlFieldsInsert($locID);
     
     //echo "$sqlSmt";
-    
-    
     
     $queryid=mysqli_query($connection, $sqlSmt);
     
@@ -82,7 +71,6 @@ if(isset($_GET['CreateAcc']))
     $queryid=mysqli_query($connection, $sqlStm11);}
     
     */
- 
 }
 
 ?>
