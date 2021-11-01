@@ -17,3 +17,9 @@ function showPosition(documentTagID, position) {
   documentTagID.innerHTML = "Latitude: " + position.coords.latitude +
   "<br>Longitude: " + position.coords.longitude;
 }
+
+function getDistance(latX, longX, latY, longY)
+{
+  distKM = Math.sqrt((latX-latY)**2 + (longX-longY)**2);
+  return distKM;
+}
