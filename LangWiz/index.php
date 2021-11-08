@@ -149,7 +149,8 @@
           <input type="password" id="password2" class="form-control validate" name="userPasswordconfirm"   onkeyup='validatePassword();' required> 
         </div>
 		<div class="md-form mb-4">
-          <span id="errorMatch"></span>
+          <span id="errorMatch"></span><br/>
+          <span id="errorPassw"></span>
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
