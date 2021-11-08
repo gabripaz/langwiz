@@ -12,27 +12,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src=".\js\geolocalization.js"></script>
-<script>
-
-    function validatePassword()
-    {
-    var p1 =  document.getElementById("password1").value;
-    var p2 =  document.getElementById("password2").value;
-    
-        if(p1 == p2){
-        document.getElementById("errorMatch").innerHTML="Paswords Match"; 
-        document.getElementById("errorMatch").style.color='green'; 
-        document.getElementById('createacc').disabled = false;
-        
-        }
-        else if(p1=="" && p2==""){document.getElementById("errorMatch").innerHTML=""; }
-        else{
-        document.getElementById("errorMatch").innerHTML="Paswords Not Match"; 
-        document.getElementById("errorMatch").style.color='red'; 
-        document.getElementById('createacc').disabled = true;}
-    }
-   
-</script>
+  <script type="text/javascript" src=".\js\passwordValidation.js"></script>
 
 </head>
 
@@ -138,6 +118,7 @@
                     <option value="<?=$city?>"><?=$city?></option>
                 }
                 <?php }?>
+             </select>
          </div>
 		 <div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
