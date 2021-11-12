@@ -13,6 +13,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src=".\js\geolocalization.js"></script>
   <script type="text/javascript" src=".\js\passwordValidation.js"></script>
+  <script type="text/javascript" src=".\js\AjaxGetCities.js"></script>
 
 </head>
 
@@ -83,7 +84,7 @@
          </div>
           <div class="md-form mb-5">
          <label data-error="wrong" data-success="right" for="defaultForm-text">Country :</label>
-         <select name="countryselect" id="countryselect" class="form-control validate" required>
+         <select name="countryselect" id="countryselect" class="form-control validate" onchange = "populateOptionsInfo(this)" required>
     	   <option value=""></option>
           <?php  
               require_once 'configurationdb.php';
@@ -105,15 +106,15 @@
           <option value=""></option>
           <?php  
               require_once 'configurationdb.php';
-              //echo '<option value="hello">hello</option>'; //#testing
-              if(isset($_GET[$country]))
-                {
+              $country = $_GET[countryId])
+              if(!empty($country))
+                {                
                 $sqlStmt="Select Distinct City from location WHERE Country = $country ORDER BY City";
                 $queryId=mysqli_query($connection, $sqlStmt);
                 
                 while($rec2=mysqli_fetch_array($queryId)){
                     $city=$rec2["City"];}
-                    echo '<option value="hello">hello</option>';//#testing
+                    echo "<option value='$city'>$city</option>";//#testing
                 ?>
                     <option value="<?=$city?>"><?=$city?></option>
                 }
