@@ -90,12 +90,11 @@
               require_once 'configurationdb.php';
               $sqlStmt="Select Distinct Country from location ORDER BY Country";
               $queryId=mysqli_query($connection, $sqlStmt);
-              
-              while($rec=mysqli_fetch_array($queryId)){
-              $country=$rec["Country"];
-              ?>
-                  <option value="<?=$country?>"><?=$country?></option>
-                <?php }?>
+              while($rec=mysqli_fetch_array($queryId))
+              {
+                $country=$rec["Country"];              
+                echo "<option value='$country'>$country</option>";
+               }?>
   		  </select>
   		  </div>
   		  <div class="md-form mb-5">
@@ -103,22 +102,20 @@
           <label data-error="wrong" data-success="right" for="defaultForm-text">City :</label>
           <!-- <input type="text" id="defaultForm-text" class="form-control validate" name="city"> -->
           <select name="cityselect" id="cityselect" class="form-control validate" required>
-          <option value=""></option>
-          <?php  
-              require_once 'configurationdb.php';
-              $country = $_GET[countryId])
+          
+          <?php 
+              $country = $_GET[countryId];
+              echo "<option id = 'testing' value='hello'></option>";//#testing
               if(!empty($country))
-                {                
-                $sqlStmt="Select Distinct City from location WHERE Country = $country ORDER BY City";
+              {  
+                echo "<option value='hello'>hello</option>";//#testing
+                $sqlStmt="Select Distinct City from location WHERE Country = '$country' ORDER BY City";
                 $queryId=mysqli_query($connection, $sqlStmt);
-                
                 while($rec2=mysqli_fetch_array($queryId)){
-                    $city=$rec2["City"];}
-                    echo "<option value='$city'>$city</option>";//#testing
-                ?>
-                    <option value="<?=$city?>"><?=$city?></option>
+                    $city=$rec2["City"];
                 }
-                <?php }?>
+              }
+                ?>
              </select>
          </div>
 		 <div class="md-form mb-5">
@@ -127,15 +124,14 @@
           <select name="motherlang" id="motherlang" class="form-control validate">
           <option value=""></option>
             
-          <?php  
-    	 
+          <?php 
             $sqlStmt="Select LangName from languages";
             $queryId=mysqli_query($connection, $sqlStmt);
             
             while($rec=mysqli_fetch_array($queryId)){
-            $langName=$rec["LangName"]; ?>
-                <option value="<?=$langName?>"><?=$langName?></option>
-              <?php }?>
+               $langName=$rec["LangName"];
+               echo "<option value='$langName'>$langName</option>";
+             }?>
           </select>
          </div>
 		 
