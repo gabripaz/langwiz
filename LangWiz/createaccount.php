@@ -63,18 +63,6 @@ if(isset($_GET['CreateAcc']))
     $queryid=mysqli_query($connection, $sqlSmt);
     
    
-    //I AM HAVING PROBLEMS WITH THIS PART... I am not sure why does'nt want to recognise the variable of the sql statement it says Warning: Undefined variable $sqlSmt11 
-    /*
-    if(isset($_GET["userPassword"]))
-    {
-        $passw=$_GET["userPassword"];
-   
-   // $sqlStm11="INSERT INTO `passwords`(`Password`) VALUES (`$passw`)";
-    $sqlStm11="INSERT INTO `passwords`(`Password`) VALUES (`patata`)";
-    echo "pasww  $passw  $sqlSmt11";
-    $queryid=mysqli_query($connection, $sqlStm11);}
-    
-    */
 }
 
 ?>

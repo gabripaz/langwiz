@@ -17,7 +17,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src=".\js\geolocalization.js"></script>
   <script type="text/javascript" src=".\js\passwordValidation.js"></script>
-  <script type="text/javascript" src=".\js\AjaxGetCities.js"></script>
 
 
 </head>
@@ -89,7 +88,7 @@
          </div>
           <div class="md-form mb-5">
          <label data-error="wrong" data-success="right" for="defaultForm-text">Country :</label>
-         <select name="countryselect" id="countryselect" class="form-control validate" onchange = "populateOptionsInfo(this)" required>
+         <select name="countryselect" id="countryselect" class="form-control validate" required>
     	   <option value=""></option>
          
             <?php
@@ -107,30 +106,12 @@
   		  <div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
           <label data-error="wrong" data-success="right" for="defaultForm-text">City :</label>
-          <!-- <input type="text" id="defaultForm-text" class="form-control validate" name="city"> -->
-<<<<<<< HEAD
-           <!--<select name="cityselect" id="cityselect" class="form-control validate"> -->
+          
            <?php  
-           echo '<select name="cityselect" id="city" class="form-control validate">';
+           echo '<select name="cityselect" id="city" class="form-control validate" required>';
            echo "<option value='$city'>$city</option>";
             
            
-=======
-          <select name="cityselect" id="cityselect" class="form-control validate" required>
-          
-          <?php 
-              $country = $_GET[countryId];
-              echo "<option id = 'testing' value='hello'></option>";//#testing
-              if(!empty($country))
-              {  
-                echo "<option value='hello'>hello</option>";//#testing
-                $sqlStmt="Select Distinct City from location WHERE Country = '$country' ORDER BY City";
-                $queryId=mysqli_query($connection, $sqlStmt);
-                while($rec2=mysqli_fetch_array($queryId)){
-                    $city=$rec2["City"];
-                }
-              }
->>>>>>> 7784ff2c1abe1c6e34ab976e6e3d7eb5265951de
                 ?>
              </select>
          </div>
@@ -185,8 +166,7 @@
 		<div id="logoimgenes"></div>
         <div id="logo_text">
 		
-          <!-- class="logo_colour", allows you to change the colour of the text -->
-          <h1><a href="index.html">Lang<span class="logo_colour">Wiz</span></a></h1>
+          <h1><a href="index.php">Lang<span class="logo_colour">Wiz</span></a></h1>
           <h2>The new way to learn a new language</h2>
 		  <div id="loginbox">
 		  <button class="buttons" data-toggle="modal" data-target="#modalLogin">Login</button>
@@ -199,11 +179,10 @@
       <div id="menubar">
         <ul id="menu">
           <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
-          <li class="selected"><a href="index.html">Home</a></li>
-          <li><a href="examples.html">How to Start</a></li>
-          <li><a href="page.html">A Page</a></li>
-          <li><a href="another_page.html">Another Page</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li class="selected"><a href="index.php">Home</a></li>
+          <li><a href=#howtostartmark>How to Start</a></li>
+          <li><a href=#OurMssionmark>Our Mission</a></li>
+          <li><a href=#contactusmark>Contact Us</a></li>
         </ul>
       </div>
 
@@ -215,7 +194,7 @@
         <div class="sidebar">
           <div class="sidebar_top"></div>
           <div class="sidebar_item">
-            <!-- insert your sidebar items here -->
+
             <h3>Latest News</h3>
             <h5><strong>Now you can find friends in other countries</strong></h5>
             <h5>October 1st, 2021</h5>
@@ -236,19 +215,7 @@
           </div>
           <div class="sidebar_base"></div>
         </div>
-        <div class="sidebar">
-          <div class="sidebar_top"></div>
-          <div class="sidebar_item">
-            <h3>Search</h3>
-            <form method="post" action="#" id="search_form">
-              <p>
-                <input class="search" type="text" name="search_field" value="Enter keywords....." />
-                <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="style/search.png" alt="Search" title="Search" />
-              </p>
-            </form>
-          </div>
-          <div class="sidebar_base"></div>
-        </div>
+        
       </div>
       <div id="content">
         <!-- insert the page content here -->
@@ -256,19 +223,71 @@
         <p>With LangWiz you can learn and practice a new language, find new friends, share and get to know new cultures.</p>
 		<p>We already know how complicated it is to practice a new language, especially if you are in a place or surrounded by people who speak the same mother tongue as you, and despite taking language courses there comes a point where you need to put your knowledge into practice.</p>
 		<p>That is why LangWiz is created that It allows you to meet another person who speaks the language you want to improve and in turn you can help that person to know and share your language and culture. </p>
-        <h2 id="title2">It is time to learn a new language</h2>
+        <h2 class="title2">It is time to learn a new language</h2>
         <p>In this Website you can :</p>
         <ul>
           <li>Explore New Cultures</li>
           <li>Meet new frieds</li>
           <li>Learn as many languages as you want</li>
         </ul>
+     <span id="howtostartmark"></span>
+      <div id="HowToStart">
+      	<h1>How to Start</h1>
+         <ul>
+              <li>First Create an Account
+              	<ul>
+              		<li>Click here to create an account  <button class="buttons" data-toggle="modal" data-target="#modalSignIn">Sign In</button></li>
+              		<li>Add all the Requested Information and password </li>
+              		<li>Now you can Login</li>
+              	</ul>
+              </li>
+              <li>Second Log in to account <button class="buttons" data-toggle="modal" data-target="#modalLogin">Login</button>
+              	<ul>
+              		<li>Now you can update your account</li>
+              		<li>Add a profile picture</li>
+              		<li>And the most important start connection and practicing a new language</li>
+              	</ul>
+              </li>
+            
+          </ul>
+      </div>
+      
       </div>
     </div>
+    <span id="OurMssionmark"></span>
+    <div id="OurMssion">
+        <div id="popuplogo">
+          	<div id="lwLogoPopup"></div>
+         </div>
+         <div id="Mission">
+             <h2 class="title2">Our Mission</h2>
+             <p>In Lanwiz we understand that everyone learn in a different way. Or mision is to create a plataform that allows were millions of people can learn at once and help eachother.
+             </br>Beyond the classroom, in LangWiz you can share experiences, culture, and hear first-hand the correct pronunciation of the language you want to learn.
+             </br>Our ultimate goal is that everyone have the oportunity of learn and connect with more people through technology.</p>
+         </div>
+     </div>
+      <span id="contactusmark"></span>
+     <div id="contactus">
+     <h2 class="title2">Contact Us</h2>
+     	<div id="map">
+     		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2796.91767465899!2d-73.58371338420238!3d45.49160253963517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91a6c597e5669%3A0x8dbf497cbd80d838!2sColl%C3%A8ge%20LaSalle!5e0!3m2!1sen!2sca!4v1637006746025!5m2!1sen!2sca" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+     	</div>
+     	<div id="contacusText">
+     		<h3>Our location</h3>
+     		<p>Rez-de-chaussee, 2000 Saint-Catherine St W, Montreal, Quebec</p>
+     		<h3>Call us at :</h3>
+     		<p>(438) 564-98-44</p>
+     		<h3>Or email us at :</h3>
+     		<p>langwizsupport@langwiz.com</p>
+     		
+     	</div>
+     	
+     </div>
+     <div class="clear"></div>
     <div id="content_footer"></div>
     <div id="footer">
-      <p><a href="index.html">Home</a> | <a href="examples.html">Examples</a> | <a href="page.html">A Page</a> | <a href="another_page.html">Another Page</a> | <a href="contact.html">Contact Us</a></p>
-      <p>Copyright &copy;  WebServer Applications| <a href="http://validator.w3.org/check?uri=referer">HTML5</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> | </p>
+      <p><a href="index.php">Home</a> | <a href=#howtostartmark>How to Start</a> | <a href=#OurMssionmark>Our Mission</a>|<a href=#contactusmark>Contact Us</a></p>
+      <p>Copyright &copy;  WebServer Applications - Group 3
     </div>
   </div>
   
