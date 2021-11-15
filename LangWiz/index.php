@@ -1,7 +1,11 @@
+ <?php  
+              require_once 'configurationdb.php';?>
 <html>
 
 <head>
   <title>LangWiz</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   <script src="ajax/ajaxLocation.js"></script>
   <meta name="description" content="website description" />
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
@@ -13,6 +17,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src=".\js\geolocalization.js"></script>
   <script type="text/javascript" src=".\js\passwordValidation.js"></script>
+
 
 </head>
 
@@ -85,39 +90,30 @@
          <label data-error="wrong" data-success="right" for="defaultForm-text">Country :</label>
          <select name="countryselect" id="countryselect" class="form-control validate" required>
     	   <option value=""></option>
-          <?php  
-              require_once 'configurationdb.php';
+         
+            <?php
               $sqlStmt="Select Distinct Country from location ORDER BY Country";
               $queryId=mysqli_query($connection, $sqlStmt);
-              
-              while($rec=mysqli_fetch_array($queryId)){
-              $country=$rec["Country"];
-              ?>
-                  <option value="<?=$country?>"><?=$country?></option>
-                <?php }?>
+              while($rec=mysqli_fetch_array($queryId))
+              {
+                $country=$rec["Country"];              
+                echo "<option value='$country'>$country</option>";
+               }?>
   		  </select>
   		  </div>
+  		    
+       
   		  <div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
           <label data-error="wrong" data-success="right" for="defaultForm-text">City :</label>
           <!-- <input type="text" id="defaultForm-text" class="form-control validate" name="city"> -->
-          <select name="cityselect" id="cityselect" class="form-control validate" required>
-          <option value=""></option>
-          <?php  
-              require_once 'configurationdb.php';
-              //echo '<option value="hello">hello</option>'; //#testing
-              if(isset($_GET[$country]))
-                {
-                $sqlStmt="Select Distinct City from location WHERE Country = $country ORDER BY City";
-                $queryId=mysqli_query($connection, $sqlStmt);
-                
-                while($rec2=mysqli_fetch_array($queryId)){
-                    $city=$rec2["City"];}
-                    echo '<option value="hello">hello</option>';//#testing
+           <!--<select name="cityselect" id="cityselect" class="form-control validate"> -->
+           <?php  
+           echo '<select name="cityselect" id="city" class="form-control validate">';
+           echo "<option value='$city'>$city</option>";
+            
+           
                 ?>
-                    <option value="<?=$city?>"><?=$city?></option>
-                }
-                <?php }?>
              </select>
          </div>
 		 <div class="md-form mb-5">
@@ -126,15 +122,14 @@
           <select name="motherlang" id="motherlang" class="form-control validate">
           <option value=""></option>
             
-          <?php  
-    	 
+          <?php 
             $sqlStmt="Select LangName from languages";
             $queryId=mysqli_query($connection, $sqlStmt);
             
             while($rec=mysqli_fetch_array($queryId)){
-            $langName=$rec["LangName"]; ?>
-                <option value="<?=$langName?>"><?=$langName?></option>
-              <?php }?>
+               $langName=$rec["LangName"];
+               echo "<option value='$langName'>$langName</option>";
+             }?>
           </select>
          </div>
 		 
@@ -168,7 +163,6 @@
   <div id="main">
     <div id="header">
 	
-		
       <div id="logo">
 		<div id="logoimgenes"></div>
         <div id="logo_text">
