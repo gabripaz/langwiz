@@ -59,7 +59,7 @@
 <div class="modal fade" id="modalSignIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div  class="modal-dialog" role="document">
-     <form  action="classes/createaccount.php" method="get" onsubmit="validatePassword()">
+     <form  action="create_Account.php" method="get" onsubmit="validatePassword()">
     <div class="modal-content" id="boxmodal2">
       <div class="modal-header text-center">
       <h3 class="modal-title w-100 font-weight-bold">Create an Account</h3>

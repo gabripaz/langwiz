@@ -175,20 +175,32 @@ class Account{
         $this->language = $language;
     }
 
-    public function locationIdFinder() {
-        $country=$this->country;
-        $city=$this->city;
+    public function locationIdFinder($connection) {
+          
+        $sqlStmt="Select `LocationID` from `location` where `City`=:city";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(":city", $this->getCity(),PDO::PARAM_STR);
         
-        $sqlStmt="Select `LocationID` from `location` where `City`=$city and `Country`=$country";
-        $locId=$connection->exec($sqlStmt);
-        return $locId;
+        $result=$prepareQuery->fetchAll();
+        
+       
+            
+            return $result;
+            
+        
+        
+        
     }
-    public function languageIdFinder(){
-        $lang=$this->language;
-        $sqlStmt="Select `LangID` from `languages` where `LangName`=$lang";
-        $langid=$connection->exec($sqlStmt);
-        return $langid;
+    public function languageIdFinder($connection){
+        $sqlStmt="Select `LangID` from `languages` where `LangName`=:lang";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(":lang", $this->getLanguage(),PDO::PARAM_STR);
         
+        $result=$prepareQuery->fetchAll();
+        
+        
+        
+        return $result;
     }
     
     public function createAccount($connection) {
@@ -197,7 +209,7 @@ class Account{
        $firstName=$this->firstName;
        $lastName=$this->lastName;
        $photo=$this->photo;
-       $locationID=locationIdFinder();
+      //$locationID=locationIdFinder();
        $email=$this->email;
        $password=$this->password;
        $languageID=languageIdFinder();
