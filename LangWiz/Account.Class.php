@@ -1,7 +1,7 @@
 <?php 
+
 class Account{
     
-   // private $userId;
     private $userName;
     private $firstName;
     private $lastName;
@@ -11,9 +11,12 @@ class Account{
     private $email;
     private $password;
     private $language;
+    private $locId;
+    private $langId;
+    
     
     function __construct($userName=null, $firstName=null, $lastName=null,$photo=null,$country=null,$city=null,$email=null,$password=null, $language=null) {
-    
+        
         $this->userName=$userName;
         $this->firstName=$firstName;
         $this->lastName=$lastName;
@@ -23,7 +26,12 @@ class Account{
         $this->email=$email;
         $this->password=$password;
         $this->language=$language;
+       
     }
+    
+
+
+    
     /**
      * @return string
      */
@@ -175,58 +183,54 @@ class Account{
         $this->language = $language;
     }
 
-    public function locationIdFinder($connection) {
-          
-        $sqlStmt="Select `LocationID` from `location` where `City`=:city";
-        $prepareQuery= $connection ->prepare($sqlStmt);
-        $prepareQuery->bindValue(":city", $this->getCity(),PDO::PARAM_STR);
-        
-        $result=$prepareQuery->fetchAll();
-        
-       
-            
-            return $result;
-            
-        
-        
-        
-    }
-    public function languageIdFinder($connection){
-        $sqlStmt="Select `LangID` from `languages` where `LangName`=:lang";
-        $prepareQuery= $connection ->prepare($sqlStmt);
-        $prepareQuery->bindValue(":lang", $this->getLanguage(),PDO::PARAM_STR);
-        
-        $result=$prepareQuery->fetchAll();
-        
-        
-        
-        return $result;
-    }
-    
+
     public function createAccount($connection) {
       // $userId=$this->userId;
-       $userName=$this->userName;
+        $sqlStmt="Select `LocationID` from `location` where `City`=:city";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':city', $this->getCity(),PDO::PARAM_STR);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        
+        $locationID=($result[0]['LocationID']);
+        
+        $sqlStmt="SELECT `LangID` FROM `languages` WHERE `LangName`=:lang";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':lang', $this->getLanguage(),PDO::PARAM_STR);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        
+        $languageID=($result[0]['LangID']);
+        
+      
+        $userName=$this->userName;
        $firstName=$this->firstName;
        $lastName=$this->lastName;
        $photo=$this->photo;
-      //$locationID=locationIdFinder();
        $email=$this->email;
        $password=$this->password;
-       $languageID=languageIdFinder();
        
         
         $sqlStmt="INSERT INTO `users`(`Username`, `FName`,`LName`, `Photo`, `LocationID`, `EmailAddress`) 
         VALUES ('$userName','$firstName','$lastName','$photo',$locationID,'$email')";
         $result=$connection->exec($sqlStmt);
         
-        /*$sqlStmt="INSERT INTO `accounts`(`UserID`, `Password`) VALUES ($userId,'$password')";
+        $sqlStmt="Select `UserID` from `users` where `Username`=:username";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':username', $this->getUserName(),PDO::PARAM_STR);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        
+        $userID=($result[0]['UserID']);
+        
+        $sqlStmt="INSERT INTO `accounts`(`UserID`, `Password`) VALUES ($userID,'$password')";
         $result1=$connection->exec($sqlStmt);
         
-        $sqlStmt="INSERT INTO `languagespeak` (`LangID`, `UserID`) VALUES ($languageID,$userId)";
-        $result2=$connection->exec($sqlStmt);*/
+        $sqlStmt="INSERT INTO `languagespeak` (`LangID`, `UserID`) VALUES ($languageID,$userID)";
+        $result2=$connection->exec($sqlStmt);
         
-        //return $result+$result1+$result2;
         return $result;
+        //return $result;
     }
     
     

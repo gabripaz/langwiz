@@ -1,5 +1,7 @@
  <?php  
-              require_once 'configurationdb.php';?>
+              require_once 'configurationdb.php';
+             
+              ?>
 <html>
 
 <head>

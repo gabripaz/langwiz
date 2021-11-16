@@ -4,7 +4,3 @@ $username="root";
 $password="";
 $dbname="langwiz";
 $connection=mysqli_connect($hostname,$username,$password,$dbname);
-
-
-
-    

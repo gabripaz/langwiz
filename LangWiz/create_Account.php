@@ -1,7 +1,11 @@
 <?php 
 require_once 'configurationdb.php';
-require_once 'Account.Class.php';
+require 'Account.Class.php';
+
 $connection = new PDO("mysql:host=$hostname; dbname=$dbname",$username, $password);
+
+
+
 
 
 if(isset($_GET["userName"])){$userName=$_GET["userName"];}
@@ -13,16 +17,21 @@ if(isset($_GET["cityselect"])){ $city=$_GET["cityselect"];}
 if(isset($_GET["motherlang"])){ $langu=$_GET["motherlang"];}
 if(isset($_GET["userPassword"])){ $password=$_GET["userPassword"];}
 
+
+
 if(isset($_GET['CreateAcc']))
 {
-    
-    
-    $ac= new Account($userName,$firstName, $lastName,$photo="img/default.jpg",
+ 
+    $ac= new Account($userName,$firstName, $lastName,"img/default.jpg",
         $country,$city,$email, $password, $langu);
-    var_dump($ac->languageIdFinder($connection));
-   // $ac->createAccount($connection);
-    
-    
+   
+    if($ac->createAccount($connection)>0){
+        header("Location:index.php"); 
+    }
+    else{
+        header("Location:index.php"); 
+        echo '<script>alert("The account was not created!!")</script>';
+    }
 }
 
 ?>
