@@ -1,4 +1,13 @@
+<?php 
 
+session_start();
+$userName=$_SESSION["userName"];
+$userFname=$_SESSION["FName"];
+$userLname=$_SESSION["LName"];
+$userPhoto=$_SESSION["Photo"];
+$userEmail=$_SESSION["email"];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +26,7 @@
 <html>
 
 <head>
-  <title>LangWiz</title>
+  <title>LangWiz-UserProfile</title>
   <meta name="description" content="website description" />
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
@@ -47,19 +56,6 @@
         </div>
       </div>
 	 
-      <div id="menubar">
-        <ul id="menu">
-          <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
-          <li class="selected"><a href="index.html">Home</a></li>
-          <li><a href="examples.html">How to Start</a></li>
-          <li><a href="page.html">A Page</a></li>
-          <li><a href="another_page.html">Another Page</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-      </div>
-
-    </div>
-
 
 
 
@@ -68,34 +64,18 @@
 
 
  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-<div class="container bootstrap snippets bootdey" style="background-color:#E6E6FA;">
+<div id="UserAccContainer" class="container bootstrap snippets bootdey" >
 <div class="row">
   <div class="profile-nav col-md-3">
       <div class="panel">
           <div class="user-heading round">
              <!-- Here after we can include the option to change the picture -->
               <a href="#">
-                  <img src="img/default.jpg" alt="">
+                  <img src="<?=$userPhoto?>" alt="">
               </a>
-              <?php 
-              require_once 'configurationdb.php';
-              if(isset($_GET['userName']))
-              {
-                  $username=$_GET['userName'];
-              
-             $firstName="";$lastName="";$email="";$photo="";
-              
-              //$sqlStmt="SELECT `FName`,`LName`,`EmailAddress`,`Photo` FROM `users` WHERE `UserName`=$userName";
-              $sqlStmt="SELECT `FName`,`LName`,`EmailAddress`,`Photo` FROM `users` WHERE `UserName`='$username'";
-              $queryId=mysqli_query($connection, $sqlStmt);
-              while ($rec=mysqli_fetch_array($queryId)){
-                  $firstName=$rec["FName"];
-                  $lastName=$rec["LName"];
-                  $email=$rec["EmailAddress"];
-                  $photo=$rec["Photo"];
-              ?>
-              <h1><?=$firstName?></h1>
-              <p><?=$email?></p>
+              <h1><?=$userName?></h1>
+              <h2><?php echo "$userFname  $userFname"?></h2>
+              <p><?=$userEmail?></p>
           </div>
 
           <ul class="nav nav-pills nav-stacked">
@@ -136,10 +116,10 @@
               <h1>Bio Graph</h1>
               <div class="row">
                   <div class="bio-row">
-                      <p><span>First Name </span>: <?=$firstName?></p>
+                      <p><span>First Name </span>: <?=$userFname?></p>
                   </div>
                   <div class="bio-row">
-                      <p><span>Last Name </span>: <?=$lastName?></p>
+                      <p><span>Last Name </span>: <?=$userLname?></p>
                   </div>
                   <div class="bio-row">
                       <p><span>Country </span>: Canada</p>
@@ -149,11 +129,11 @@
                       <p><span>Language </span>: English</p>
                   </div>
                   <div class="bio-row">
-                      <p><span>Email </span>: <?=$email?></p>
+                      <p><span>Email </span>: <?=$userEmail?></p>
                   </div>
                  
               </div>
-              <?php }}?>
+             
           </div>
       </div>
       <div>

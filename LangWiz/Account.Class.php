@@ -157,8 +157,7 @@ class Account{
         $this->photo = $photo;
     }
 
-    
-
+ 
     /**
      * @param mixed $email
      */
@@ -183,9 +182,18 @@ class Account{
         $this->language = $language;
     }
 
-
+    public function searchUserId($connection){
+        $sqlStmt="Select `UserID` from `users` where `Username`=:username";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':username', $this->getUserName(),PDO::PARAM_STR);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        
+        return $result[0]['UserID'];
+        
+    }
     public function createAccount($connection) {
-      // $userId=$this->userId;
+      //search the location Id 
         $sqlStmt="Select `LocationID` from `location` where `City`=:city";
         $prepareQuery= $connection ->prepare($sqlStmt);
         $prepareQuery->bindValue(':city', $this->getCity(),PDO::PARAM_STR);
@@ -193,7 +201,7 @@ class Account{
         $result=$prepareQuery->fetchAll();
         
         $locationID=($result[0]['LocationID']);
-        
+        //search the language Id 
         $sqlStmt="SELECT `LangID` FROM `languages` WHERE `LangName`=:lang";
         $prepareQuery= $connection ->prepare($sqlStmt);
         $prepareQuery->bindValue(':lang', $this->getLanguage(),PDO::PARAM_STR);
@@ -203,18 +211,18 @@ class Account{
         $languageID=($result[0]['LangID']);
         
       
-        $userName=$this->userName;
+       $userName=$this->userName;
        $firstName=$this->firstName;
        $lastName=$this->lastName;
        $photo=$this->photo;
        $email=$this->email;
        $password=$this->password;
        
-        
+        //Inserting Data into users
         $sqlStmt="INSERT INTO `users`(`Username`, `FName`,`LName`, `Photo`, `LocationID`, `EmailAddress`) 
         VALUES ('$userName','$firstName','$lastName','$photo',$locationID,'$email')";
         $result=$connection->exec($sqlStmt);
-        
+        //Searching the asigned user Id
         $sqlStmt="Select `UserID` from `users` where `Username`=:username";
         $prepareQuery= $connection ->prepare($sqlStmt);
         $prepareQuery->bindValue(':username', $this->getUserName(),PDO::PARAM_STR);
@@ -222,20 +230,62 @@ class Account{
         $result=$prepareQuery->fetchAll();
         
         $userID=($result[0]['UserID']);
-        
+        //Inserting Data into accounts 
         $sqlStmt="INSERT INTO `accounts`(`UserID`, `Password`) VALUES ($userID,'$password')";
         $result1=$connection->exec($sqlStmt);
-        
+        //Inserting Data into languagespeak 
         $sqlStmt="INSERT INTO `languagespeak` (`LangID`, `UserID`) VALUES ($languageID,$userID)";
         $result2=$connection->exec($sqlStmt);
         
         return $result;
-        //return $result;
+        
+    }
+    
+    public function Login($connection){
+        $userName=$this->userName;
+        $password=$this->password;
+        
+        $sqlStmt="Select `UserID` from `users` where `Username`=:username";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':username', $this->getUserName(),PDO::PARAM_STR);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        
+        $userId= ($result[0]['UserID']);
+        
+      
+        
+        $sqlStmt="SELECT `Password` FROM `accounts` WHERE `UserID`=:userId";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':userId',$userId,PDO::PARAM_STR);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        
+        $passSaved=($result[0]['Password']);
+        
+        if( $password==$passSaved){
+            return true;
+        }
+        else return false;
+    }
+    
+    public function searchUserInformation($connection){
+        $userName=$this->userName;
+        $sqlStmt="Select * from `users` where `Username`=:username";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':username', $this->getUserName(),PDO::PARAM_STR);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        
+       
+           return $result;
+          
+        
+    }
     }
     
     
     
-}
 
 
 ?>

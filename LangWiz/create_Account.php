@@ -26,7 +26,7 @@ if(isset($_GET['CreateAcc']))
         $country,$city,$email, $password, $langu);
    
     if($ac->createAccount($connection)>0){
-        header("Location:index.php"); 
+        header("Location:userpage.php"); 
     }
     else{
         header("Location:index.php"); 
