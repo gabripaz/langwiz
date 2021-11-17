@@ -7,6 +7,11 @@ $userLname=$_SESSION["LName"];
 $userPhoto=$_SESSION["Photo"];
 $userEmail=$_SESSION["email"];
 
+$userLang=$_SESSION["lang"];
+$userCountry=$_SESSION["country"];
+$userCity=$_SESSION["city"];
+$userBadges=$_SESSION["badges"];
+echo "$userLang $userCity";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +24,9 @@ $userEmail=$_SESSION["email"];
 	<link rel="stylesheet" type="text/css" href="style/style2.css" />
 	<link rel="stylesheet" type="text/css" href="style/style.css" />
 	  <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'>
+	  <script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.form.js"></script>
+	  <script type="text/javascript" src="js/upload.js"></script>
 	
 </head>
 <body>
@@ -50,7 +58,9 @@ $userEmail=$_SESSION["email"];
 		  <div id="loginbox">
 
 		  <!-- ANCOR TAGS TO REMOVE AFTER -->
-		  <a href="index.php"><button class="buttons" data-toggle="modal" >Log Out</button></a>
+		  <form method="get" action="LoginHandler.php">
+		  	 	<input type="submit" class="buttons" name="logOut" value="Log Out"></input>
+		  </form>
 		  </div>
 		   <div class="clr"></div>
         </div>
@@ -74,7 +84,7 @@ $userEmail=$_SESSION["email"];
                   <img src="<?=$userPhoto?>" alt="">
               </a>
               <h1><?=$userName?></h1>
-              <h2><?php echo "$userFname  $userFname"?></h2>
+              <h2><?php echo "$userFname  $userLname"?></h2>
               <p><?=$userEmail?></p>
           </div>
 
@@ -113,7 +123,7 @@ $userEmail=$_SESSION["email"];
               I want to learn Portuguese, and meet new friends
           </div>
           <div class="panel-body bio-graph-info">
-              <h1>Bio Graph</h1>
+              <h1>Your Information</h1>
               <div class="row">
                   <div class="bio-row">
                       <p><span>First Name </span>: <?=$userFname?></p>
@@ -122,11 +132,12 @@ $userEmail=$_SESSION["email"];
                       <p><span>Last Name </span>: <?=$userLname?></p>
                   </div>
                   <div class="bio-row">
-                      <p><span>Country </span>: Canada</p>
+                      <p><span>Country </span>:<?=$userCountry?></p>
+                       <p><span>City </span>:<?=$userCity?></p>
                   </div>
                   
                   <div class="bio-row">
-                      <p><span>Language </span>: English</p>
+                      <p><span>Language </span>:<?=$userLang?></p>
                   </div>
                   <div class="bio-row">
                       <p><span>Email </span>: <?=$userEmail?></p>
@@ -147,7 +158,7 @@ $userEmail=$_SESSION["email"];
                           </div>
                           <div class="bio-desk">
                               <h4 class="red">Langwiz Badges</h4>
-                              <p>Silver</p>
+                              <p><?=$userBadges?>Silver</p>
                               <p>250</p>
                           </div>
                       </div>
@@ -191,9 +202,9 @@ $userEmail=$_SESSION["email"];
                               <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="2" data-fgcolor="#cba4db" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(203, 164, 219); padding: 0px; -webkit-appearance: none; background: none;"></div>
                           </div>
                           <div class="bio-desk">
-                              <h4 class="purple">Languages</h4>
-                              <p>English</p>
-                              <p>Spanish</p>
+                              <h4 class="purple">Language</h4>
+                              <p><?=$userLang?></p>
+                              
                           </div>
                       </div>
                   </div>

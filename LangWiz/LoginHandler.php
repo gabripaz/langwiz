@@ -20,14 +20,17 @@ if(isset($_GET['Login']))
         header("Location:userpage.php");
         $result=$ac->searchUserInformation($connection);
         if(sizeof($result)>0){
+
             $_SESSION["userid"]=$result[0]["UserID"];
             $_SESSION["userName"]=$result[0]["Username"];
             $_SESSION["FName"]=$result[0]["FName"];
             $_SESSION["LName"]=$result[0]["LName"];
             $_SESSION["Photo"]=$result[0]["Photo"];
-            $_SESSION["locId"]=$result[0]["LocationID"];
             $_SESSION["email"]=$result[0]["EmailAddress"];
-            
+            $_SESSION["lang"]=$result[0]["LangName"];
+            $_SESSION["country"]=$result[0]["Country"];
+            $_SESSION["city"]=$result[0]["City"];
+            $_SESSION["badges"]=$result[0]["BadgeDesc"];
             //echo "$userID $userFname  $userLname $userPhoto $userLocId $userEmail";
         }
     }
@@ -38,6 +41,10 @@ if(isset($_GET['Login']))
     
 }
 
+if(isset($_GET['logOut'])){
+    session_destroy();
+    header("location:index.php");
+}
 
 
 ?>

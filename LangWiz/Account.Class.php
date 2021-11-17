@@ -271,7 +271,14 @@ class Account{
     
     public function searchUserInformation($connection){
         $userName=$this->userName;
-        $sqlStmt="Select * from `users` where `Username`=:username";
+        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,l.LangName,lo.Country,lo.City, b.BadgeDesc 
+        FROM users u
+        LEFT JOIN location lo ON lo.LocationID = u.LocationID
+        LEFT JOIN rewardtable r ON u.UserID=r.UserID
+        LEFT JOIN languagespeak lgsp ON lgsp.UserID=u.UserID
+        LEFT JOIN languages l ON lgsp.LangID=l.LangID
+        LEFT JOIN badges b ON r.BadgeID=b.BadgeID 
+        WHERE u.Username=:username";
         $prepareQuery= $connection ->prepare($sqlStmt);
         $prepareQuery->bindValue(':username', $this->getUserName(),PDO::PARAM_STR);
         $prepareQuery->execute();
@@ -279,13 +286,44 @@ class Account{
         
        
            return $result;
-          
-        
-    }
+  
     }
     
+    ///UPDATE
+    function __call($method,$arg) {
+        if ($method="update")
+        {
+            $userName=$this->userName;
+            switch (count($arg)){
+                case 1:
+                    $firstName=$this->firstName;
+                    $connection=$arg[0];
+                    $sqlStmt="Update `users` set FName='$firstName' where Username=$userName";
+                    break;
+                case 2:
+                    $lastName=$this->lastName;
+                    $connection=$arg[0];
+                    $sqlStmt="Update `users` set FName='$lastName' where Username=$userName";
+                    break;
+                case 3:
+                    $photo=$this->photo;
+                    $connection=$arg[0];
+                    $sqlStmt="Update `users` set Photo='$photo' where Username=$userName";
+                    break;
+                case 4:
+                    $email=$this->email;
+                    $connection=$arg[0];
+                    $sqlStmt="Update student set EmailAddress=$email where Username=$userName";
+                    break;
+               
+            }
+            $result = $connection->exec($sqlStmt);
+            return $result;
+        }
+    }
     
     
-
+    
+}
 
 ?>
