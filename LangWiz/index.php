@@ -1,7 +1,6 @@
  <?php  
-              require_once 'configurationdb.php';
-             
-              ?>
+  require_once 'configurationdb.php';
+?>
 <html>
 
 <head>
@@ -88,7 +87,9 @@
            <label data-error="wrong" data-success="right" for="defaultForm-email">Email :</label>
           <input type="text" id="defaultForm-text" class="form-control validate" name="email" required>
          </div>
-          <div class="md-form mb-5">
+         <div class="md-form mb-5">
+           <!-- Here I need to merge the location get from the user "getLocation()" with "getNearPlaces()" -->
+            <a style="cursor: pointer;"onclick="alert(getLocation(this))">Get my location</a></br> 
          <label data-error="wrong" data-success="right" for="defaultForm-text">Country :</label>
          <select name="countryselect" id="countryselect" class="form-control validate" required>
     	   <option value=""></option>
@@ -112,9 +113,7 @@
            <?php  
            echo '<select name="cityselect" id="city" class="form-control validate" required>';
            echo "<option value='$city'>$city</option>";
-            
-           
-                ?>
+           ?>
              </select>
          </div>
 		 <div class="md-form mb-5">

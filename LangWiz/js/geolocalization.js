@@ -3,7 +3,7 @@ function getLocation(documentTagID) //ID just to display error message
  {
     //verifies if the browser support
   if (navigator.geolocation) {
-    position = navigator.geolocation.getCurrentPosition();
+    position = navigator.geolocation.getCurrentPosition(success);
     latitude = position.coords.latitude;
     longitude = position.cords.longitude;
     return (latitude,longitude);
