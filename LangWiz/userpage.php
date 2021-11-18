@@ -6,12 +6,12 @@ $userFname=$_SESSION["FName"];
 $userLname=$_SESSION["LName"];
 $userPhoto=$_SESSION["Photo"];
 $userEmail=$_SESSION["email"];
-
 $userLang=$_SESSION["lang"];
 $userCountry=$_SESSION["country"];
 $userCity=$_SESSION["city"];
 $userBadges=$_SESSION["badges"];
-echo "$userLang $userCity";
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,18 +29,6 @@ echo "$userLang $userCity";
 	  <script type="text/javascript" src="js/upload.js"></script>
 	
 </head>
-<body>
-
-<html>
-
-<head>
-  <title>LangWiz-UserProfile</title>
-  <meta name="description" content="website description" />
-  <meta name="keywords" content="website keywords, website keywords" />
-  <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
-  <link rel="stylesheet" type="text/css" href="style/style.css" />
-  <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'>
-  </head>
 
 <body>
 
@@ -52,12 +40,12 @@ echo "$userLang $userCity";
 		<div id="logoimgenes"></div>
         <div id="logo_text">
 		
-          <!-- class="logo_colour", allows you to change the colour of the text -->
+         
           <h1><a href="index.html">Lang<span class="logo_colour">Wiz</span></a></h1>
           <h2>The new way to learn a new language</h2>
 		  <div id="loginbox">
 
-		  <!-- ANCOR TAGS TO REMOVE AFTER -->
+		 
 		  <form method="get" action="LoginHandler.php">
 		  	 	<input type="submit" class="buttons" name="logOut" value="Log Out"></input>
 		  </form>
@@ -77,12 +65,19 @@ echo "$userLang $userCity";
 <div id="UserAccContainer" class="container bootstrap snippets bootdey" >
 <div class="row">
   <div class="profile-nav col-md-3">
-      <div class="panel">
+      <div  class="panel">
           <div class="user-heading round">
              <!-- Here after we can include the option to change the picture -->
-              <a href="#">
-                  <img src="<?=$userPhoto?>" alt="">
-              </a>
+             
+              
+                  <div id='preview'><?php echo "<img id='userpicture' src='$userPhoto' class='preview'>"?></div>	
+				<form id="image_upload_form" method="post" enctype="multipart/form-data" action='image_upload.php' autocomplete="off">
+					<div class="file_input_container">
+						<div class="upload_button"><input type="file" name="photo" id="photo" class="file"/>
+						<label for="photo">Change Picture</label></div>
+					</div><br clear="all">
+				</form>
+             
               <h1><?=$userName?></h1>
               <h2><?php echo "$userFname  $userLname"?></h2>
               <p><?=$userEmail?></p>
@@ -214,5 +209,9 @@ echo "$userLang $userCity";
   </div>
 </div>
 </div>
+
+
+
+
 </body>
 </html>

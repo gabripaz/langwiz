@@ -298,22 +298,22 @@ class Account{
                 case 1:
                     $firstName=$this->firstName;
                     $connection=$arg[0];
-                    $sqlStmt="Update `users` set FName='$firstName' where Username=$userName";
+                    $sqlStmt="Update `users` set FName='$firstName' where Username='$userName'";
                     break;
                 case 2:
                     $lastName=$this->lastName;
                     $connection=$arg[0];
-                    $sqlStmt="Update `users` set FName='$lastName' where Username=$userName";
+                    $sqlStmt="Update `users` set FName='$lastName' where Username='$userName'";
                     break;
                 case 3:
                     $photo=$this->photo;
                     $connection=$arg[0];
-                    $sqlStmt="Update `users` set Photo='$photo' where Username=$userName";
+                    $sqlStmt="Update `users` set Photo='$photo' where Username='$userName'";
                     break;
                 case 4:
                     $email=$this->email;
                     $connection=$arg[0];
-                    $sqlStmt="Update student set EmailAddress=$email where Username=$userName";
+                    $sqlStmt="Update student set EmailAddress=$email where Username='$userName'";
                     break;
                
             }

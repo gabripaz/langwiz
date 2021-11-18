@@ -1,12 +1,14 @@
 <?php
-include_once("condigurationdb.php");
+include_once("configurationdb.php");
 require_once 'Account.Class.php';
 $connection = new PDO("mysql:host=$hostname; dbname=$dbname",$username, $password);
 
 session_start();
-$session_id=1; 
+$userName=$_SESSION["userName"];
+
 $path = "uploads/";
 $valid_formats = array("jpg", "png", "gif", "bmp","jpeg");
+
 if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
 {
 	$name = $_FILES['photo']['name'];
@@ -15,16 +17,16 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
 		list($txt, $ext) = explode(".", $name);
 		if(in_array($ext,$valid_formats)) {
 			if($size<(1024*1024)) {
-				$image_name = time().$session_id.".".$ext;
+			    $image_name = time().$userName.".".$ext;
 				$tmp = $_FILES['photo']['tmp_name'];
 				if(move_uploaded_file($tmp, $path.$image_name)){
 				    
-				    $st1=new Student();
-				    $st1->setStudenId($session_id);
-				    $st1->setPhoto($image_name);
-				    $result=$st1->update($connection,"ph","o","t","o");
+				    $ac1=new Account();
+				    $ac1->setUserName($userName);
+				    $ac1->setPhoto( $path.$image_name);
+				    $result=$ac1->update($connection,"ph","o");
 				  
-					echo "<img src='uploads/".$image_name."' class='preview'>";
+					echo "<img id='userpicture' src='uploads/".$image_name."' class='preview'>";
 				    }
 				else
 				echo "Image Upload failed";
