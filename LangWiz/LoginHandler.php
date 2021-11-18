@@ -31,20 +31,90 @@ if(isset($_GET['Login']))
             $_SESSION["country"]=$result[0]["Country"];
             $_SESSION["city"]=$result[0]["City"];
             $_SESSION["badges"]=$result[0]["BadgeDesc"];
-            //echo "$userID $userFname  $userLname $userPhoto $userLocId $userEmail";
+          
         }
     }
     else{
         
         echo '<script>alert("Invalid Credentials!!")</script>';
     }
-    
+   
 }
 
+
+//LOGOUT
 if(isset($_GET['logOut'])){
     session_destroy();
     header("location:index.php");
 }
 
+//UPDATE PROFILE
+if(isset($_GET['editProfile'])){
+    
+    if(isset($_GET["userNameEdit"])){$userNameEdited=$_GET["userNameEdit"];}
+    if(isset($_GET["firstNameEdit"])){$firstNameEdited=$_GET["firstNameEdit"];}
+    if(isset($_GET["LastNameEdit"])){$lastNameEdited=$_GET["LastNameEdit"];}
+    if(isset($_GET["emailEdit"])){$emailEdited=$_GET["emailEdit"];}
+    
+    
+    $userID= $_SESSION["userid"];
+    $ac1 =new Account();
+    $ac1->setUserID($userID);
+        
+    if($userNameEdited!=""){
+        $ac1 -> setUserName( $userNameEdited);
+        $result=$ac1->update($connection);
+        if($result==true)
+        {
+            echo  "The username has been updated";
+        }
+        else{
+            $err=$connection->errorInfo();
+            echo $err[2]."<br/>";
+        }
+    }
+    
+    if($firstNameEdited!=""){
+        $ac1->setFirstName($firstNameEdited);
+        $result=$ac1->update($connection,"FN");
+        if($result==true)
+        {
+            echo  "The first name has been updated";
+        }
+        else{
+            $err=$connection->errorInfo();
+            echo $err[2]."<br/>";
+        }}
+        
+        
+        
+        if($lastNameEdited!=""){
+            $ac1->setLastName($lastNameEdited);
+            $result=$ac1->update($connection,"LN","LN","LN");
+            if($result==true)
+            {
+                echo  "The last Name has been updated";
+            }
+            else{
+                $err=$connection->errorInfo();
+                echo $err[2]."<br/>";
+            }
+        }
+                if( $emailEdited!=""){
+            $ac1->setEmail($emailEdited);
+            $result=$ac1->update($connection,"E","M","A","IL");
+            if($result==true)
+            {
+                echo  "The email has been updated";
+            }
+            else{
+                $err=$connection->errorInfo();
+                echo $err[2]."<br/>";
+               
+            }
+           
+        }  
+        header("location:userpage.php");
+}
 
 ?>

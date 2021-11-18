@@ -2,6 +2,7 @@
 
 class Account{
     
+    private $userID;
     private $userName;
     private $firstName;
     private $lastName;
@@ -15,8 +16,10 @@ class Account{
     private $langId;
     
     
+
     function __construct($userName=null, $firstName=null, $lastName=null,$photo=null,$country=null,$city=null,$email=null,$password=null, $language=null) {
         
+       
         $this->userName=$userName;
         $this->firstName=$firstName;
         $this->lastName=$lastName;
@@ -29,9 +32,21 @@ class Account{
        
     }
     
-
-
+    /**
+     * @return string
+     */
+    public function getUserID()
+    {
+        return $this->userID;
+    }
     
+    /**
+     * @param string $userID
+     */
+    public function setUserID($userID)
+    {
+        $this->userID = $userID;
+    }
     /**
      * @return string
      */
@@ -293,27 +308,34 @@ class Account{
     function __call($method,$arg) {
         if ($method="update")
         {
-            $userName=$this->userName;
+            $userID=$this->userID;
+           
             switch (count($arg)){
                 case 1:
-                    $firstName=$this->firstName;
+                    $userName=$this->userName;
                     $connection=$arg[0];
-                    $sqlStmt="Update `users` set FName='$firstName' where Username='$userName'";
+                    $sqlStmt="Update `users` set UserName='$userName' where UserID=$userID";
                     break;
                 case 2:
-                    $lastName=$this->lastName;
+                    $firstName=$this->firstName;
                     $connection=$arg[0];
-                    $sqlStmt="Update `users` set FName='$lastName' where Username='$userName'";
+                    $sqlStmt="Update `users` set FName='$firstName' where UserID=$userID";
                     break;
+                
                 case 3:
                     $photo=$this->photo;
                     $connection=$arg[0];
-                    $sqlStmt="Update `users` set Photo='$photo' where Username='$userName'";
+                    $sqlStmt="Update `users` set Photo='$photo' where UserID=$userID";
                     break;
                 case 4:
+                    $lastName=$this->lastName;
+                    $connection=$arg[0];
+                    $sqlStmt="Update `users` set LName='$lastName' where UserID=$userID";
+                    break;
+                case 5:
                     $email=$this->email;
                     $connection=$arg[0];
-                    $sqlStmt="Update student set EmailAddress=$email where Username='$userName'";
+                    $sqlStmt="Update `users` set EmailAddress='$email' where UserID=$userID";
                     break;
                
             }

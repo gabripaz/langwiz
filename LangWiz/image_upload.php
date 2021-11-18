@@ -4,8 +4,8 @@ require_once 'Account.Class.php';
 $connection = new PDO("mysql:host=$hostname; dbname=$dbname",$username, $password);
 
 session_start();
-$userName=$_SESSION["userName"];
 
+$userID=$_SESSION["userid"];
 $path = "uploads/";
 $valid_formats = array("jpg", "png", "gif", "bmp","jpeg");
 
@@ -17,12 +17,12 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
 		list($txt, $ext) = explode(".", $name);
 		if(in_array($ext,$valid_formats)) {
 			if($size<(1024*1024)) {
-			    $image_name = time().$userName.".".$ext;
+			    $image_name = time()."userID".$userID.".".$ext;
 				$tmp = $_FILES['photo']['tmp_name'];
 				if(move_uploaded_file($tmp, $path.$image_name)){
 				    
 				    $ac1=new Account();
-				    $ac1->setUserName($userName);
+				    $ac1->setUserID($userID);
 				    $ac1->setPhoto( $path.$image_name);
 				    $result=$ac1->update($connection,"ph","o");
 				  

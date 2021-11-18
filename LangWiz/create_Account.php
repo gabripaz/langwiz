@@ -26,7 +26,8 @@ if(isset($_GET['CreateAcc']))
         $country,$city,$email, $password, $langu);
    
     if($ac->createAccount($connection)>0){
-        header("Location:userpage.php"); 
+        header("Location:index.php"); 
+        echo "<script>alert('The account has been created!')</script>";
     }
     else{
         header("Location:index.php"); 

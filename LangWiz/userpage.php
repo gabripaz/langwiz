@@ -86,7 +86,7 @@ $userBadges=$_SESSION["badges"];
           <ul class="nav nav-pills nav-stacked">
               <li class="active"><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
               <li><a href="#"> <i class="fa fa-calendar"></i> Meet New People <span class="label label-warning pull-right r-activity">9</span></a></li>
-              <li><a href="#"> <i class="fa fa-edit"></i> Edit profile</a></li>
+              <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> Edit profile</a></li>
           </ul>
       </div>
   </div>
@@ -212,6 +212,52 @@ $userBadges=$_SESSION["badges"];
 
 
 
+<!-- MODAL FOR UPDATE PROFILE -->
+
+<!--Modal-->
+<div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div  class="modal-dialog" role="document">
+     <form  action="LoginHandler.php" method="get">
+    <div class="modal-content" id="boxmodal2">
+      <div class="modal-header text-center">
+      <h3 class="modal-title w-100 font-weight-bold">Edit Profile Account</h3>
+      <h5>Any changes will be visible the next time that you login</h5>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+           <label data-error="wrong" data-success="right" for="defaultForm-text">User Name :</label>
+          <input type="text" id="defaultForm-text" class="form-control validate" name="userNameEdit" >
+         </div>
+		<div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+           <label data-error="wrong" data-success="right" for="defaultForm-text">First Name :</label>
+          <input type="text" id="defaultForm-text" class="form-control validate" name="firstNameEdit" >
+         </div>
+		 <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+           <label data-error="wrong" data-success="right" for="defaultForm-text">Last Name :</label>
+          <input type="text" id="defaultForm-text" class="form-control validate" name="LastNameEdit" >
+         </div>
+          <div class="md-form mb-5">
+
+          <i class="fas fa-envelope prefix grey-text"></i>
+           <label data-error="wrong" data-success="right" for="defaultForm-email">Email :</label>
+          <input type="text" id="defaultForm-text" class="form-control validate" name="emailEdit" >
+         </div>
+          <div class="modal-footer d-flex justify-content-center">
+        <input type="submit" class="btn btn-default" id="createacc" name="editProfile" value="Edit Profile" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+        
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
 
 </body>
 </html>
