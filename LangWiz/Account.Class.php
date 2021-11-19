@@ -14,7 +14,7 @@ class Account{
     private $language;
     private $locId;
     private $langId;
-    
+    private $message;
     
 
     function __construct($userName=null, $firstName=null, $lastName=null,$photo=null,$country=null,$city=null,$email=null,$password=null, $language=null) {
@@ -196,7 +196,23 @@ class Account{
     {
         $this->language = $language;
     }
-
+    
+    /**
+     * @return mixed
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+    
+    /**
+     * @param mixed $message
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    }
+    
     public function searchUserId($connection){
         $sqlStmt="Select `UserID` from `users` where `Username`=:username";
         $prepareQuery= $connection ->prepare($sqlStmt);
@@ -345,15 +361,15 @@ class Account{
     }
    //SEARCH USERS
     public function searchUserSbyLanguage($connection){
-       
-        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,lo.Country,lo.City
+                
+        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,u.`personalMsg`,l.LangName,lo.Country,lo.City
         FROM users u
         LEFT JOIN location lo ON lo.LocationID = u.LocationID
         LEFT JOIN languagespeak lgsp ON lgsp.UserID=u.UserID
         LEFT JOIN languages l ON lgsp.LangID=l.LangID
         WHERE l.LangName=:language";
         $prepareQuery= $connection ->prepare($sqlStmt);
-        $prepareQuery->bindValue(':language', $this->language,PDO::PARAM_STR);
+        $prepareQuery->bindValue(':language',$this->getLanguage(),PDO::PARAM_STR);
         $prepareQuery->execute();
         $result=$prepareQuery->fetchAll();
         
