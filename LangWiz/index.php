@@ -108,10 +108,10 @@
        
   		  <div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
-          <label data-error="wrong" data-success="right" for="defaultForm-text">City :</label>
-          <option value="" id = "cityFirstOption"></option>
+          <label data-error="wrong" data-success="right" for="defaultForm-text">City :</label>          
            <?php  
            echo '<select name="cityselect" id="city" class="form-control validate" required>';
+           echo '<option value="" id = "cityFirstOption"></option>';
            echo "<option value='$city'>$city</option>";
            ?>
              </select>
