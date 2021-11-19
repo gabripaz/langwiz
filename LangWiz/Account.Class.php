@@ -362,22 +362,22 @@ class Account{
         
     }
 
-    // SEARCH USERS BY DISTANCE
-     public function searchUsersByDistance($connection){
-        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,lo.Country,lo.City
-        FROM users u
-        LEFT JOIN location lo ON lo.LocationID = u.LocationID
-        LEFT JOIN languagespeak lgsp ON lgsp.UserID=u.UserID
-        LEFT JOIN languages l ON lgsp.LangID=l.LangID
-        WHERE (l0.city - something ) as distance"; // This is where I want to calculate the distance between this user and other users based on the distance parameter I set. How?
-        $prepareQuery= $connection ->prepare($sqlStmt);
-        $prepareQuery->bindValue(':distance', $this->getdistance(),PDO::PARAM_STR); // a function?
-        $prepareQuery->execute();
-        $result=$prepareQuery->fetchAll();
+    // // SEARCH USERS BY DISTANCE
+    //  public function searchUsersByDistance($connection){
+    //     $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,lo.Country,lo.City
+    //     FROM users u
+    //     LEFT JOIN location lo ON lo.LocationID = u.LocationID
+    //     LEFT JOIN languagespeak lgsp ON lgsp.UserID=u.UserID
+    //     LEFT JOIN languages l ON lgsp.LangID=l.LangID
+    //     WHERE (l0.city - something ) as distance"; // This is where I want to calculate the distance between this user and other users based on the distance parameter I set. How?
+    //     $prepareQuery= $connection ->prepare($sqlStmt);
+    //     $prepareQuery->bindValue(':distance', $this->getdistance(),PDO::PARAM_STR); // a function?
+    //     $prepareQuery->execute();
+    //     $result=$prepareQuery->fetchAll();
         
         
-        return $result;
-     }
+    //     return $result;
+    //  }
     
     
 }
