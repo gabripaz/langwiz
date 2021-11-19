@@ -1,17 +1,23 @@
 <?php 
+require_once 'configurationdb.php';
+
 
 session_start();
 $userName=$_SESSION["userName"];
 $userFname=$_SESSION["FName"];
 $userLname=$_SESSION["LName"];
-$userPhoto=$_SESSION["Photo"];
 $userEmail=$_SESSION["email"];
 $userLang=$_SESSION["lang"];
 $userCountry=$_SESSION["country"];
 $userCity=$_SESSION["city"];
 $userBadges=$_SESSION["badges"];
 
-
+$sqlStmt="Select Photo from users where Username='$userName'";
+$queryId=mysqli_query($connection, $sqlStmt);
+while($rec=mysqli_fetch_array($queryId))
+{
+    $userPhoto=$rec["Photo"];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,9 +89,9 @@ $userBadges=$_SESSION["badges"];
               <p><?=$userEmail?></p>
           </div>
 
-          <ul class="nav nav-pills nav-stacked">
-              <li class="active"><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
-              <li><a href="#"> <i class="fa fa-calendar"></i> Meet New People <span class="label label-warning pull-right r-activity">9</span></a></li>
+           <ul class="nav nav-pills nav-stacked">
+              <li class="active"><a href="userpage.php"> <i class="fa fa-user"></i> Profile</a></li>
+              <li><a href="SearchOtherUsers.php"> <i class="fa fa-calendar"></i> Meet New People <span class="label label-warning pull-right r-activity">9</span></a></li>
               <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> Edit profile</a></li>
           </ul>
       </div>
@@ -93,10 +99,10 @@ $userBadges=$_SESSION["badges"];
   <div class="profile-info col-md-9">
       <div class="panel">
           <form>
-              <textarea placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area"></textarea>
+              <textarea id="status" placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area"></textarea>
           </form>
           <footer class="panel-footer">
-              <button class="btn btn-warning pull-right">Post</button>
+              <button class="btn btn-warning pull-right" onclick="changeStatus()">Post</button>
               <ul class="nav nav-pills">
                   <li>
                       <a href="#"><i class="fa fa-map-marker"></i></a>
@@ -114,7 +120,7 @@ $userBadges=$_SESSION["badges"];
           </footer>
       </div>
       <div class="panel">
-          <div class="bio-graph-heading">
+          <div id="postedstatus" class="bio-graph-heading">
               I want to learn Portuguese, and meet new friends
           </div>
           <div class="panel-body bio-graph-info">

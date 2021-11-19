@@ -343,7 +343,24 @@ class Account{
             return $result;
         }
     }
-    
+   //SEARCH USERS
+    public function searchUserSbyLanguage($connection){
+       
+        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,lo.Country,lo.City
+        FROM users u
+        LEFT JOIN location lo ON lo.LocationID = u.LocationID
+        LEFT JOIN languagespeak lgsp ON lgsp.UserID=u.UserID
+        LEFT JOIN languages l ON lgsp.LangID=l.LangID
+        WHERE l.LangName=:language";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':language', $this->language,PDO::PARAM_STR);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        
+        
+        return $result;
+        
+    }
     
     
 }
