@@ -117,4 +117,15 @@ if(isset($_GET['editProfile'])){
         header("location:userpage.php");
 }
 
+
+// Searching users
+if(isset($_GET['languageSelect'])){
+    
+    $lang=$_GET['languageSelect'];
+    $ac2 =new Account();
+    $ac2->setLanguage($lang);
+    $ac2->searchUserSbyLanguage($connection);
+    
+}
+
 ?>
