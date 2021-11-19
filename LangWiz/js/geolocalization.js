@@ -3,16 +3,11 @@ function getLocation() //ID just to display error message
  {
     //verifies if the browser support
   if (navigator.geolocation) {
-    window.alert("test");
+    window.alert("Working until here");
     navigator.geolocation.getCurrentPosition(success);
     }else {
     alert("Geolocation is not supported by this browser.");
   }
-}
-
-function showPosition(documentTagID, position) {
-  documentTagID.innerHTML = "Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude;
 }
 
 function getDistance(latX, longX, latY, longY)
@@ -22,15 +17,16 @@ function getDistance(latX, longX, latY, longY)
 }
 
 function success(position) {
-  position = navigator.geolocation.getCurrentPosition(success);
-  latitude = position.coords.latitude;
-  longitude = position.cords.longitude;
+  var latitude = position.coords.latitude;
+  var longitude = position.cords.longitude;
   alert(longitude + latitude);
-  return crd;
+  //Now we just have to pass the values to the function in php to get the city
+  //something like this
+  var arrContryAndCity = "<?php include_once '../phpFiles/geolocalization.php';echo getNearPlaces(1,1,latitude,longitude);?>";
+  document.getElementById("firstOption").innerHTML = arrContryAndCity[0];
+  document.getElementById("cityFirstOption").innerHTML = arrContryAndCity[1];
 };
 
 function error(err) {
   console.warn('ERROR(' + err.code + '): ' + err.message);
 };
-
-navigator.geolocation.getCurrentPosition(success, error, options);
