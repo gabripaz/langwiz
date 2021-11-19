@@ -31,7 +31,7 @@ if(isset($_GET['Login']))
             $_SESSION["country"]=$result[0]["Country"];
             $_SESSION["city"]=$result[0]["City"];
             $_SESSION["badges"]=$result[0]["BadgeDesc"];
-          
+            $_SESSION["message"]=$result[0]["personalMsg"];
         }
     }
     else{
@@ -40,6 +40,46 @@ if(isset($_GET['Login']))
         header("Location:index.php");
     }
    
+}
+
+//STATUS MESSAGE
+if(isset($_GET['post'])){
+    if(isset($_GET["mystatus"])){$statusMessage=$_GET["mystatus"];}
+    $userID= $_SESSION["userid"];
+    $ac11 =new Account();
+    $ac11->setUserID($userID);
+  
+    $ac11 -> setMessage($statusMessage);
+    $result=$ac11->update($connection,'2','3','4','5','6');
+        if($result==true)
+        {
+            $_SESSION["message"]=$statusMessage;
+            echo  "Message has been updated";
+        }
+        else{
+            $err=$connection->errorInfo();
+            echo $err[2]."<br/>";
+        }
+        header("location:userpage.php");
+}
+if(isset($_GET['post2'])){
+    if(isset($_GET["mystatus"])){$statusMessage=$_GET["mystatus"];}
+    $userID= $_SESSION["userid"];
+    $ac11 =new Account();
+    $ac11->setUserID($userID);
+    
+    $ac11 -> setMessage($statusMessage);
+    $result=$ac11->update($connection,'2','3','4','5','6');
+    if($result==true)
+    {
+        $_SESSION["message"]=$statusMessage;
+        echo  "Message has been updated";
+    }
+    else{
+        $err=$connection->errorInfo();
+        echo $err[2]."<br/>";
+    }
+    header("location:SearchOtherUsers.php");
 }
 
 

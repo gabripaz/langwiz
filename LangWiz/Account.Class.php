@@ -17,6 +17,7 @@ class Account{
     private $message;
     
 
+
     function __construct($userName=null, $firstName=null, $lastName=null,$photo=null,$country=null,$city=null,$email=null,$password=null, $language=null) {
         
        
@@ -52,6 +53,8 @@ class Account{
     public function setEmail($email){$this->email = $email;}
     public function setPassword($password){$this->password = $password;}
     public function setLanguage($language){$this->language = $language;}
+    public function getMessage(){ return $this->message;}
+    public function setMessage($message){ $this->message = $message;}
 
 
     public function searchUserId($connection){
@@ -143,7 +146,7 @@ class Account{
     
     public function searchUserInformation($connection){
         $userName=$this->userName;
-        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,l.LangName,lo.Country,lo.City, b.BadgeDesc 
+        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,u.`personalMsg`,l.LangName,lo.Country,lo.City, b.BadgeDesc 
         FROM users u
         LEFT JOIN location lo ON lo.LocationID = u.LocationID
         LEFT JOIN rewardtable r ON u.UserID=r.UserID
@@ -193,6 +196,11 @@ class Account{
                     $email=$this->email;
                     $connection=$arg[0];
                     $sqlStmt="Update `users` set EmailAddress='$email' where UserID=$userID";
+                    break;
+                case 6:
+                    $messg=$this->message;
+                    $connection=$arg[0];
+                    $sqlStmt="Update `users` set personalMsg='$messg' where UserID=$userID";
                     break;
                
             }

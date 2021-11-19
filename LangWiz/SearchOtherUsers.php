@@ -8,6 +8,7 @@ $userName=$_SESSION["userName"];
 $userFname=$_SESSION["FName"];
 $userLname=$_SESSION["LName"];
 $userEmail=$_SESSION["email"];
+$message=$_SESSION["message"];
 
 
 $sqlStmt="Select Photo from users where Username='$userName'";
@@ -96,19 +97,19 @@ border: 1px, solid black;
           </ul>
       </div>
   </div>
-  <div class="profile-info col-md-9">
+   <div class="profile-info col-md-9">
       <div class="panel">
-          <form>
-              <textarea id="status" placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area"></textarea>
-          </form>
+          <form method="get" action="LoginHandler.php">
+              <textarea name="mystatus" id="status" placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area" ></textarea>
+         
           <footer class="panel-footer">
-              <button class="btn btn-warning pull-right" onclick="changeStatus()">Post</button>
-              
+              <input type="submit" name="post2" class="btn btn-warning pull-right" onclick="changeStatus()" value="Post"/>
+               </form>
           </footer>
       </div>
-      <div class="panel">
-          <div id="postedstatus" class="bio-graph-heading">
-              I want to learn Portuguese, and meet new friends
+       <div class="panel">
+          <div  class="bio-graph-heading">
+              <p id="postedstatuss" name="status"><?=$message?></p>
           </div>
           <div class="panel-body bio-graph-info">
              <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 

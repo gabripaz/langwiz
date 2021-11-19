@@ -11,6 +11,8 @@ $userLang=$_SESSION["lang"];
 $userCountry=$_SESSION["country"];
 $userCity=$_SESSION["city"];
 $userBadges=$_SESSION["badges"];
+$message=$_SESSION["message"];
+
 
 $sqlStmt="Select Photo from users where Username='$userName'";
 $queryId=mysqli_query($connection, $sqlStmt);
@@ -96,32 +98,19 @@ while($rec=mysqli_fetch_array($queryId))
           </ul>
       </div>
   </div>
-  <div class="profile-info col-md-9">
+ <div class="profile-info col-md-9">
       <div class="panel">
-          <form>
-              <textarea id="status" placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area"></textarea>
-          </form>
+          <form method="get" action="LoginHandler.php">
+              <textarea name="mystatus" id="status" placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area" ></textarea>
+         
           <footer class="panel-footer">
-              <button class="btn btn-warning pull-right" onclick="changeStatus()">Post</button>
-              <ul class="nav nav-pills">
-                  <li>
-                      <a href="#"><i class="fa fa-map-marker"></i></a>
-                  </li>
-                  <li>
-                      <a href="#"><i class="fa fa-camera"></i></a>
-                  </li>
-                  <li>
-                      <a href="#"><i class=" fa fa-film"></i></a>
-                  </li>
-                  <li>
-                      <a href="#"><i class="fa fa-microphone"></i></a>
-                  </li>
-              </ul>
+              <input type="submit" name="post" class="btn btn-warning pull-right" onclick="changeStatus()" value="Post"/>
+               </form>
           </footer>
       </div>
       <div class="panel">
-          <div id="postedstatus" class="bio-graph-heading">
-              I want to learn Portuguese, and meet new friends
+          <div  class="bio-graph-heading">
+              <p id="postedstatus" ><?=$message?></p>
           </div>
           <div class="panel-body bio-graph-info">
               <h1>Your Information</h1>
