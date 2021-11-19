@@ -19,7 +19,7 @@ function getDistance(latX, longX, latY, longY)
 function success(position) {
   var latitude = position.coords.latitude;
   alert(latitude);
-  var longitude = position.cords.longitude;
+  var longitude = position.coords.longitude;
   alert(longitude);
   //Now we just have to pass the values to the function in php to get the city
   //something like this
