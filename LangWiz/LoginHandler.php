@@ -36,7 +36,8 @@ if(isset($_GET['Login']))
     }
     else{
         
-        echo '<script>alert("Invalid Credentials!!")</script>';
+        //echo '<script>alert("Invalid Credentials!!")</script>';
+        header("Location:index.php");
     }
    
 }
@@ -118,14 +119,6 @@ if(isset($_GET['editProfile'])){
 }
 
 
-// Searching users
-if(isset($_GET['languageSelect'])){
-    
-    $lang=$_GET['languageSelect'];
-    $ac2 =new Account();
-    $ac2->setLanguage($lang);
-    $ac2->searchUserSbyLanguage($connection);
-    
-}
+
 
 ?>

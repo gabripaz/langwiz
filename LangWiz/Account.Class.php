@@ -14,7 +14,7 @@ class Account{
     private $language;
     private $locId;
     private $langId;
-    
+    private $message;
     
 
     function __construct($userName=null, $firstName=null, $lastName=null,$photo=null,$country=null,$city=null,$email=null,$password=null, $language=null) {
@@ -31,171 +31,28 @@ class Account{
         $this->language=$language;
        
     }
-    
-    /**
-     * @return string
-     */
-    public function getUserID()
-    {
-        return $this->userID;
-    }
-    
-    /**
-     * @param string $userID
-     */
-    public function setUserID($userID)
-    {
-        $this->userID = $userID;
-    }
-    /**
-     * @return string
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
 
-    /**
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
+    public function getUserID() {return $this->userID;}
+    public function setUserID($userID){$this->userID = $userID;}
+    public function getCountry(){return $this->country;}
+    public function getCity(){return $this->city;}
+    public function setCountry($country){$this->country = $country;}
+    public function setCity($city){$this->city = $city;}
+    public function getUserName(){return $this->userName;}
+    public function getFirstName(){return $this->firstName;}
+    public function getLastName(){ return $this->lastName;}
+    public function getPhoto(){return $this->photo;}
+    public function getEmail(){return $this->email;}
+    public function getPassword(){return $this->password;}
+    public function getLanguage(){return $this->language;}
+    public function setUserName($userName){$this->userName = $userName;}
+    public function setFirstName($firstName){$this->firstName = $firstName;}
+    public function setLastName($lastName){$this->lastName = $lastName;}
+    public function setPhoto($photo){$this->photo = $photo;}
+    public function setEmail($email){$this->email = $email;}
+    public function setPassword($password){$this->password = $password;}
+    public function setLanguage($language){$this->language = $language;}
 
-    /**
-     * @param string $country
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-    }
-
-    /**
-     * @param string $city
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-    }
-
-   
-
-    /**
-     * @return string
-     */
-    public function getUserName()
-    {
-        return $this->userName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
- 
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLanguage()
-    {
-        return $this->language;
-    }
-
- 
-
-    /**
-     * @param string $userName
-     */
-    public function setUserName($userName)
-    {
-        $this->userName = $userName;
-    }
-
-    /**
-     * @param string $firstName
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-    }
-
-    /**
-     * @param string $lastName
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-    }
-
-    /**
-     * @param mixed $photo
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
-    }
-
- 
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
-
-    /**
-     * @param string $language
-     */
-    public function setLanguage($language)
-    {
-        $this->language = $language;
-    }
 
     public function searchUserId($connection){
         $sqlStmt="Select `UserID` from `users` where `Username`=:username";
@@ -345,15 +202,15 @@ class Account{
     }
    //SEARCH USERS
     public function searchUserSbyLanguage($connection){
-       
-        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,lo.Country,lo.City
+                
+        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,u.`personalMsg`,l.LangName,lo.Country,lo.City
         FROM users u
         LEFT JOIN location lo ON lo.LocationID = u.LocationID
         LEFT JOIN languagespeak lgsp ON lgsp.UserID=u.UserID
         LEFT JOIN languages l ON lgsp.LangID=l.LangID
         WHERE l.LangName=:language";
         $prepareQuery= $connection ->prepare($sqlStmt);
-        $prepareQuery->bindValue(':language', $this->language,PDO::PARAM_STR);
+        $prepareQuery->bindValue(':language',$this->getLanguage(),PDO::PARAM_STR);
         $prepareQuery->execute();
         $result=$prepareQuery->fetchAll();
         
@@ -379,7 +236,23 @@ class Account{
     //     return $result;
     //  }
     
-    
+    //FIND NEAREST CITIES (returns an array of city and country)
+    public function searchUserSbyLocation($connection,$distanceKM, $limitDisplay){
+        include($_SERVER['DOCUMENT_ROOT'].'/phpFiles/geolocalization.php');
+        //get lat and long
+        $sqlStmt = "SELECT g.GeoLat, g.GeoLong 
+                    FROM users u 
+                    JOIN location l ON l.LocationID = u.LocationID 
+                    JOIN geolocalization g ON g.GeopositioningID=l.GeopositioningID 
+                    WHERE country = ':country' AND City = ':city';";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':country', $this->getCountry(),PDO::PARAM_STR);
+        $prepareQuery->bindValue(':city', $this->getCity(),PDO::PARAM_STR);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        $lat = $result[0]["GeoLat"];
+        $long = $result[0]["GeoLong"];
+        return getNearPlaces($distanceKM, $limitDisplay, $lat, $long);
+    }    
 }
-
 ?>

@@ -1,15 +1,14 @@
 <?php 
 require_once 'configurationdb.php';
 
+
 session_start();
+
 $userName=$_SESSION["userName"];
 $userFname=$_SESSION["FName"];
 $userLname=$_SESSION["LName"];
 $userEmail=$_SESSION["email"];
-$userLang=$_SESSION["lang"];
-$userCountry=$_SESSION["country"];
-$userCity=$_SESSION["city"];
-$userBadges=$_SESSION["badges"];
+
 
 $sqlStmt="Select Photo from users where Username='$userName'";
 $queryId=mysqli_query($connection, $sqlStmt);
@@ -17,10 +16,18 @@ while($rec=mysqli_fetch_array($queryId))
 {
     $userPhoto=$rec["Photo"];
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+#table2, #table2 td{
+border: 1px, solid black;
+}
+</style>
+
     <meta charset="utf-8">
     <title>user profile</title>
    <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -108,7 +115,8 @@ while($rec=mysqli_fetch_array($queryId))
              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
                 <div id="container">
                   <h2>Select the idioma that you want to paractice</h2>
-                <form action="LoginHandler.php" method="get">
+               <!--   <form action="phpFiles/searchUsers.php" method="get">-->
+                <form action="#" method="get">
                      <div class="form-group row">
                     <label for="inputgroup" class="col-sm-2 col-form-label">Language</label>
                     <div class="col-sm-10">
@@ -137,39 +145,56 @@ while($rec=mysqli_fetch_array($queryId))
                  <div id="container2">
                   
                     
-                    <table id="table2" class="table table-striped">
+                    <table id="table2" class="table table-striped" >
                  
                   <tbody>
                   
-                  <?php /*
-                  $studentid="";$address="";$name="";$photo="";
-                  if(isset($_GET["groupselect"])){
-                      $groupid=$_GET["groupselect"];
-                      $sqlStmt="SELECT `studentid`,`LastName`,`Address`,`photo` FROM `student` WHERE `groupid`=$groupid ";
-                      $queryId=mysqli_query($connection, $sqlStmt);
-                    while ($rec=mysqli_fetch_array($queryId)){
-                      $studentid=$rec["studentid"];
-                      $name=$rec["LastName"];
-                      $address=$rec["Address"];
-                      $photo=$rec["photo"];
-                      ?>
-                    <tr>            
-                      <td><?=$studentid?></td>
-                      <td> <?=$name?></td>
-                      <td><?=$address?></td>
-                      <td>
+                  <?php 
+                  require_once 'Account.Class.php';
+                  $connection = new PDO("mysql:host=$hostname; dbname=$dbname",$username, $password);
+                  // Searching users
+                  if(isset($_GET['languageSelect'])){
+                      
+                      $lang=$_GET['languageSelect'];
+                      
+                      $ac2 =new Account();
+                      $ac2->setLanguage($lang);
+                      $result=$ac2->searchUserSbyLanguage($connection);
+                      if(sizeof($result)>0){
+                          foreach($result as $data){
+                              
+                              $firstName=$data["FName"];
+                              $lastName=$data["LName"];
+                              $photo=$data["Photo"];
+                              $language=$data["LangName"];
+                              $message=$data["personalMsg"];
+                              $country=$data["Country"];
+                              $city=$data["City"];
+                    ?>
+                    <tr>    
+                    <td>
                 		<div class="row">
                           <div class="col-xs-6 col-md-3">
                                       
-                               <img src=<?=$photo?> alt="studentphoto"/>
+                               <img src=<?=$photo?> alt="userphoto"/>
                             
                           </div>
                           
                         </div>
-                </td>
+               		 </td>        
+                      <td><?php echo "$firstName $lastName"?></td>
+                      <td><?=$language?></td>
+                      <td><?=$country?></td>
+                      <td><?=$city?></td>
+                      <td><?=$message?></td>
+                      <td><button>Connect</button></td>
                     </tr>
                     <?php }}
-                   */ ?>
+                    else{
+                        echo "Sorry! There is not users with that language";
+                    }
+                  }
+                   ?>
                   </tbody>
                 </table>
                 </div>

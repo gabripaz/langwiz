@@ -92,7 +92,7 @@
             <a style="cursor: pointer;"onclick="getLocation()">Get my location</a></br> 
          <label data-error="wrong" data-success="right" for="defaultForm-text">Country :</label>
          <select name="countryselect" id="countryselect" class="form-control validate" required>
-    	   <option value=""></option>
+    	   <option value="" id = "firstOption"></option>
          
             <?php
               $sqlStmt="Select Distinct Country from location ORDER BY Country";
@@ -108,10 +108,10 @@
        
   		  <div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
-          <label data-error="wrong" data-success="right" for="defaultForm-text">City :</label>
-          
+          <label data-error="wrong" data-success="right" for="defaultForm-text">City :</label>          
            <?php  
            echo '<select name="cityselect" id="city" class="form-control validate" required>';
+           echo '<option value="" id = "cityFirstOption"></option>';
            echo "<option value='$city'>$city</option>";
            ?>
              </select>
