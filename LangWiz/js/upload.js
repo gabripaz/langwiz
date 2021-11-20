@@ -10,6 +10,3 @@ $(document).ready(function() {
 }); 
 
 
-function changeStatus(){
-document.getElementById("postedstatus").innerHTML = document.getElementById("status").innerHTML;
-}

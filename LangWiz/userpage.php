@@ -104,7 +104,7 @@ while($rec=mysqli_fetch_array($queryId))
               <textarea name="mystatus" id="status" placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area" ></textarea>
          
           <footer class="panel-footer">
-              <input type="submit" name="post" class="btn btn-warning pull-right" onclick="changeStatus()" value="Post"/>
+              <input type="submit" name="post" class="btn btn-warning pull-right" value="Post"/>
                </form>
           </footer>
       </div>

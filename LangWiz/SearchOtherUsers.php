@@ -23,11 +23,6 @@ while($rec=mysqli_fetch_array($queryId))
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>
-#table2, #table2 td{
-border: 1px, solid black;
-}
-</style>
 
     <meta charset="utf-8">
     <title>user profile</title>
@@ -103,7 +98,7 @@ border: 1px, solid black;
               <textarea name="mystatus" id="status" placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area" ></textarea>
          
           <footer class="panel-footer">
-              <input type="submit" name="post2" class="btn btn-warning pull-right" onclick="changeStatus()" value="Post"/>
+              <input type="submit" name="post2" class="btn btn-warning pull-right" value="Post"/>
                </form>
           </footer>
       </div>
@@ -112,11 +107,10 @@ border: 1px, solid black;
               <p id="postedstatuss" name="status"><?=$message?></p>
           </div>
           <div class="panel-body bio-graph-info">
-             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
-             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
-                <div id="container">
+             
+                <div id="containerSearchU">
                   <h2>Select the idioma that you want to paractice</h2>
-               <!--   <form action="phpFiles/searchUsers.php" method="get">-->
+               
                 <form action="#" method="get">
                      <div class="form-group row">
                     <label for="inputgroup" class="col-sm-2 col-form-label">Language</label>
@@ -139,23 +133,22 @@ border: 1px, solid black;
                   		  
                     </div>
                     </div>
-                   
+                  
                  </form>
                  
                  </div>
-                 <div id="container2">
+                 <div id="containerTableSearch">
                   
                     
-                    <table id="table2" class="table table-striped" >
+                    <table id="table2" >
                  
-                  <tbody>
                   
                   <?php 
                   require_once 'Account.Class.php';
                   $connection = new PDO("mysql:host=$hostname; dbname=$dbname",$username, $password);
                   // Searching users
                   if(isset($_GET['languageSelect'])){
-                      
+                     
                       $lang=$_GET['languageSelect'];
                       
                       $ac2 =new Account();
@@ -172,23 +165,26 @@ border: 1px, solid black;
                               $country=$data["Country"];
                               $city=$data["City"];
                     ?>
+                   
+                    <tbody>
+                    
                     <tr>    
                     <td>
                 		<div class="row">
-                          <div class="col-xs-6 col-md-3">
+                          <div class="picCol">
                                       
-                               <img src=<?=$photo?> alt="userphoto"/>
+                               <img id="userPict" src=<?=$photo?> alt="userphoto"/>
                             
                           </div>
                           
                         </div>
                		 </td>        
-                      <td><?php echo "$firstName $lastName"?></td>
-                      <td><?=$language?></td>
-                      <td><?=$country?></td>
-                      <td><?=$city?></td>
-                      <td><?=$message?></td>
-                      <td><button>Connect</button></td>
+                      <td><span class="descrip">My name is :</span></br><?php echo "$firstName $lastName"?></td>
+                      <td><span class="descrip">I speak :</span></br><?=$language?></td>
+                      <td><span class="descrip">I am from :</span></br><?=$country?></td>
+                      <td><span class="descrip">And my city is:</span></br><?=$city?></td>
+                      <td><span class="descrip">Something About me :</span></br><?=$message?></td>
+                      <td><button class="btn btn-warning pull-right">Connect</button></td>
                     </tr>
                     <?php }}
                     else{

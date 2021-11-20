@@ -449,4 +449,40 @@ input:focus + label {
   outline: 1px solid #000;
   outline: -webkit-focus-ring-color auto 2px;
 }
+#postedstatuss{
+	word-wrap:break-word;
+}
+.picCol{
+	max-width: 120px;
+  max-height: 120px;
+  overflow:hidden;
+}
+#userPict{
+padding:2px;
+margin:auto;
+padding-left:20px;
+  width: 110px;
+  height:110px;
+	overflow:hidden;
+}
+#table2{
+table-layout: fixed;
+word-wrap:break-word;
+}
+#table2 th{
+	min-width:100px;
+max-width: 120px;
+background-color:none;
+}
+#table2 td{
+min-width:100px;
+max-width: 120px;	
+height:60px;
+font-size:16px;
+}
+.descrip{
 
+	font-size:13px;
+	font-family:'Lobster', arial, sans-serif;
+	
+}
