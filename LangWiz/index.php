@@ -27,7 +27,7 @@
 <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div  class="modal-dialog" role="document">
-     <form  action="LoginHandler.php" method="get">
+     <form  action="phpFiles/LoginHandler.php" method="get">
     <div class="modal-content" id="boxmodal">
       <div class="modal-header text-center">
       <h3 class="modal-title w-100 font-weight-bold">Welcome</h3>

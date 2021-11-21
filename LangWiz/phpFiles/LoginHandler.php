@@ -1,6 +1,6 @@
 <?php 
-require_once 'configurationdb.php';
-require 'Account.Class.php';
+require_once '../configurationdb.php';
+require '../Account.Class.php';
 
 $connection = new PDO("mysql:host=$hostname; dbname=$dbname",$username, $password);
 
@@ -17,7 +17,7 @@ if(isset($_GET['Login']))
     $ac->setUserName($userName);
     $ac->setPassword($password);
     if($ac->Login($connection)){
-        header("Location:userpage.php");
+        header("Location:../userpage.php");
         $result=$ac->searchUserInformation($connection);
         if(sizeof($result)>0){
 
@@ -37,7 +37,7 @@ if(isset($_GET['Login']))
     else{
         
         //echo '<script>alert("Invalid Credentials!!")</script>';
-        header("Location:index.php");
+        header("Location:../index.php");
     }
    
 }
@@ -60,7 +60,7 @@ if(isset($_GET['post'])){
             $err=$connection->errorInfo();
             echo $err[2]."<br/>";
         }
-        header("location:userpage.php");
+        header("location:../userpage.php");
 }
 if(isset($_GET['post2'])){
     if(isset($_GET["mystatus"])){$statusMessage=$_GET["mystatus"];}
@@ -79,14 +79,14 @@ if(isset($_GET['post2'])){
         $err=$connection->errorInfo();
         echo $err[2]."<br/>";
     }
-    header("location:SearchOtherUsers.php");
+    header("location:../SearchOtherUsers.php");
 }
 
 
 //LOGOUT
 if(isset($_GET['logOut'])){
     session_destroy();
-    header("location:index.php");
+    header("location:../index.php");
 }
 
 //UPDATE PROFILE
@@ -107,6 +107,7 @@ if(isset($_GET['editProfile'])){
         $result=$ac1->update($connection);
         if($result==true)
         {
+            $_SESSION["userName"]=$userNameEdited;
             echo  "The username has been updated";
         }
         else{
@@ -120,6 +121,7 @@ if(isset($_GET['editProfile'])){
         $result=$ac1->update($connection,"FN");
         if($result==true)
         {
+            $_SESSION["FName"]=$firstNameEdited;
             echo  "The first name has been updated";
         }
         else{
@@ -134,6 +136,7 @@ if(isset($_GET['editProfile'])){
             $result=$ac1->update($connection,"LN","LN","LN");
             if($result==true)
             {
+                $_SESSION["LName"]=$lastNameEdited;
                 echo  "The last Name has been updated";
             }
             else{
@@ -141,21 +144,22 @@ if(isset($_GET['editProfile'])){
                 echo $err[2]."<br/>";
             }
         }
-                if( $emailEdited!=""){
+        if( $emailEdited!=""){
             $ac1->setEmail($emailEdited);
             $result=$ac1->update($connection,"E","M","A","IL");
             if($result==true)
             {
+                $_SESSION["email"]=$emailEdited;
                 echo  "The email has been updated";
             }
             else{
                 $err=$connection->errorInfo();
                 echo $err[2]."<br/>";
-               
+                
             }
            
         }  
-        header("location:userpage.php");
+        header("location:../userpage.php");
 }
 
 
