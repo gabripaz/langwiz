@@ -1,5 +1,5 @@
 <?php
-include_once("configurationdb.php");
+include_once "configurationdb.php";
 require_once 'Account.Class.php';
 $connection = new PDO("mysql:host=$hostname; dbname=$dbname",$username, $password);
 

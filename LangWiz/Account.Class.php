@@ -227,22 +227,64 @@ class Account{
         
     }
 
-    // // SEARCH USERS BY DISTANCE
-    //  public function searchUsersByDistance($connection){
-    //     $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,lo.Country,lo.City
-    //     FROM users u
-    //     LEFT JOIN location lo ON lo.LocationID = u.LocationID
-    //     LEFT JOIN languagespeak lgsp ON lgsp.UserID=u.UserID
-    //     LEFT JOIN languages l ON lgsp.LangID=l.LangID
-    //     WHERE (l0.city - something ) as distance"; // This is where I want to calculate the distance between this user and other users based on the distance parameter I set. How?
-    //     $prepareQuery= $connection ->prepare($sqlStmt);
-    //     $prepareQuery->bindValue(':distance', $this->getdistance(),PDO::PARAM_STR); // a function?
-    //     $prepareQuery->execute();
-    //     $result=$prepareQuery->fetchAll();
-        
-        
-    //     return $result;
-    //  }
+    // SEARCH USERS BY DISTANCE
+    public function searchUsersByDistance($connection, $distance,$limitDisplay){
+        define($EARTH_APROX_RADIUS, 6371);
+        $coords = $this->getLatAndLong();
+        $lat = $coords["Lat"];
+        $long = $coords["Long"];
+        $sqlStmt="SELECT u.FName, u.LName, l.City, l.Country,
+                ($EARTH_APROX_RADIUS * acos(
+                 cos( radians(:lat) )
+                 * cos( radians( g.GeoLat ) )
+                 * cos( radians( g.GeoLong ) - radians(:long) )
+                 + sin( radians(:lat) )
+                 * sin( radians( g.GeoLat ) )
+                 )) AS Distance
+                FROM geolocalization g
+                join location l ON g.GeopositioningID = l.GeopositioningID
+                join users u on u.LocationID=l.LocationID
+                HAVING Distance < :distance
+                ORDER BY Distance ASC
+                LIMIT :limitToDisplay;";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':distance', $distance,PDO::PARAM_STR);
+        $prepareQuery->bindValue(':limitToDisplay', $limitDisplay,PDO::PARAM_INT);
+        $prepareQuery->bindValue(':lat', $lat,PDO::PARAM_STR);
+        $prepareQuery->bindValue(':long', $long,PDO::PARAM_STR);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        if($result) //modify to get what its necessary
+        {
+            $i=0;
+            while($rec = mysqli_fetch_assoc($queryId))
+            {
+                $Fname=$rec["FName"];
+                $LName= $rec["LName"];
+                $userFound[$i]=array($Fname,$LName);
+                $i++;
+            }
+            return $userFound;
+        }
+    }
+     
+     public function getLatAndLong(){
+         $sqlStmt="SELECT g.GeoLat, g.GeoLong from geolocalization g 
+                    JOIN location l on l.GeopositioningID = g.GeopositioningID 
+                    WHERE City = :city";
+         $prepareQuery= $connection ->prepare($sqlStmt);
+         $prepareQuery->bindValue(':city', $this->getCity(),PDO::PARAM_STR);
+         $prepareQuery->execute();
+         $result=$prepareQuery->fetchAll();
+         if($result)
+         {            
+            $arCoords["Lat"]=$rec["GeoLat"];
+            $arCoords["Long"]=$rec["GeoLong"];
+            return $arCities;
+         }   
+         
+         return $result;
+     }
     
     //FIND NEAREST CITIES (returns an array of city and country)
     public function searchUserSbyLocation($connection,$distanceKM, $limitDisplay){

@@ -157,8 +157,4 @@ if(isset($_GET['editProfile'])){
         }  
         header("location:userpage.php");
 }
-
-
-
-
 ?>
