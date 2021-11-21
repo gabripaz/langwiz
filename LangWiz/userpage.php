@@ -54,7 +54,7 @@ while($rec=mysqli_fetch_array($queryId))
 		  <div id="loginbox">
 
 		 
-		  <form method="get" action="LoginHandler.php">
+		  <form method="get" action="phpFiles/LoginHandler.php">
 		  	 	<input type="submit" class="buttons" name="logOut" value="Log Out"></input>
 		  </form>
 		  </div>
@@ -100,7 +100,7 @@ while($rec=mysqli_fetch_array($queryId))
   </div>
  <div class="profile-info col-md-9">
       <div class="panel">
-          <form method="get" action="LoginHandler.php">
+          <form method="get" action="phpFiles/LoginHandler.php">
               <textarea name="mystatus" id="status" placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area" ></textarea>
          
           <footer class="panel-footer">
@@ -213,12 +213,11 @@ while($rec=mysqli_fetch_array($queryId))
 <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div  class="modal-dialog" role="document">
-     <form  action="LoginHandler.php" method="get">
+     <form  action="phpFiles/LoginHandler.php" method="get">
     <div class="modal-content" id="boxmodal2">
       <div class="modal-header text-center">
       <h3 class="modal-title w-100 font-weight-bold">Edit Profile Account</h3>
-      <h5>Any changes will be visible the next time that you login</h5>
-      </div>
+     </div>
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <i class="fas fa-envelope prefix grey-text"></i>
