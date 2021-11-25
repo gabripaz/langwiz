@@ -244,7 +244,7 @@ class Account{
             $lat = $data["GeoLat"];
             $long = $data["GeoLong"];
        }
-        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.FName, u.LName,u.Photo,u.EmailAddress,u.personalMsg, l.City, l.Country,
+        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.FName, u.LName,u.Photo,u.EmailAddress,u.personalMsg, la.LangName, l.City, l.Country,
                 ($EARTH_APROX_RADIUS * acos(
                  cos( radians(:lat) )
                  * cos( radians( g.GeoLat ) )
@@ -253,8 +253,10 @@ class Account{
                  * sin( radians( g.GeoLat ) )
                  )) AS Distance
                 FROM geolocalization g
-                join location l ON g.GeopositioningID = l.GeopositioningID
-                join users u on u.LocationID=l.LocationID
+                JOIN location l ON g.GeopositioningID = l.GeopositioningID
+                JOIN users u on u.LocationID=l.LocationID
+                LEFT JOIN languagespeak ls on ls.UserID = u.UserID
+                LEFT JOIN languages la on la.LangID = ls.LangID
                 HAVING Distance < :distance
                 ORDER BY Distance ASC
                 LIMIT :limitToDisplay;";
