@@ -1,4 +1,3 @@
-
 function getLocation() //ID just to display error message
  {
     //verifies if the browser support

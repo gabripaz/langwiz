@@ -265,7 +265,8 @@ class Account{
         $prepareQuery->bindValue(':long', $long,PDO::PARAM_STR);
         $prepareQuery->execute();
         $result=$prepareQuery->fetchAll();
-       return $result;
+      //var_dump($result);
+        return $result;
   
     }
      

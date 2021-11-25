@@ -88,7 +88,8 @@ while($rec=mysqli_fetch_array($queryId))
 
           <ul class="nav nav-pills nav-stacked">
               <li ><a href="userpage.php"> <i class="fa fa-user"></i> Profile</a></li>
-              <li class="active"><a href="SearchOtherUsers.php"> <i class="fa fa-calendar"></i> Meet New People <span class="label label-warning pull-right r-activity">9</span></a></li>
+              <li class="active"><a href="SearchOtherUsers.php"> <i class="fa fa-calendar"></i> Meet New People</a></li>
+              <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> My Connections<span class="label label-warning pull-right r-activity">9</span></a></li>
               <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> Edit profile</a></li>
           </ul>
       </div>
@@ -153,7 +154,7 @@ while($rec=mysqli_fetch_array($queryId))
                   if(isset($_GET['languageSelect']) or isset($_GET['usersClose'])){
                      
                       $lang=$_GET['languageSelect'];
-                      ($_GET['usersClose']=="")?$close="":$close=$_GET['usersClose'];
+                      (@$_GET['usersClose']=="")?$close="":$close=$_GET['usersClose'];
                       
                       $ac2 =new Account();
                       if($lang){
@@ -171,7 +172,7 @@ while($rec=mysqli_fetch_array($queryId))
                               $lastName=$data["LName"];
                               $photo=$data["Photo"];
                               $language="Por definir";
-                              //$language=$data["LangName"];
+                              //$language=$data["LangName"];//here just need the language in the query
                               $message=$data["personalMsg"];
                               $country=$data["Country"];
                               $city=$data["City"];

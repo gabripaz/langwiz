@@ -56,7 +56,7 @@ function success(position) {
     //something like this
     var arrContryAndCity = ';
 echo getNearPlaces(1,1,latitude,longitude);
-echo 'document.getElementById("firstOption").innerHTML = arrContryAndCity[0];
-  document.getElementById("cityFirstOption").innerHTML = arrContryAndCity[1];
+echo 'document.getElementById("firstOption").value = arrContryAndCity[0];
+  document.getElementById("cityFirstOption").value = arrContryAndCity[1];
     };';
 ?>
