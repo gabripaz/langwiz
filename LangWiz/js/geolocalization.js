@@ -22,11 +22,11 @@ function success(position) {
   alert(longitude);
   //Now we just have to pass the values to the function in php to get the city
   //something like this
-  var arrContryAndCity = <?php include_once '../phpFiles/geolocalization.php';echo getNearPlaces(1,1,latitude,longitude);?>;
+  /*var arrContryAndCity = <?php include_once '../phpFiles/geolocalization.php';echo getNearPlaces(1,1,latitude,longitude);?>;
   document.getElementById("firstOption").innerHTML = arrContryAndCity[0];
-  document.getElementById("cityFirstOption").innerHTML = arrContryAndCity[1];
-};
+  document.getElementById("cityFirstOption").innerHTML = arrContryAndCity[1];*/
+}
 
 function error(err) {
   console.warn('ERROR(' + err.code + '): ' + err.message);
-};
+}
