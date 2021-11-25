@@ -1,5 +1,8 @@
  <?php  
   require_once 'configurationdb.php';
+  if(isset($_GET['loginMessage'])){
+      $loginMessage=$_GET['loginMessage'];
+  }else $loginMessage="";
 ?>
 <html>
 
@@ -179,7 +182,7 @@
 	 
       <div id="menubar">
         <ul id="menu">
-          <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
+          
           <li class="selected"><a href="index.php">Home</a></li>
           <li><a href=#howtostartmark>How to Start</a></li>
           <li><a href=#OurMssionmark>Our Mission</a></li>
@@ -189,6 +192,7 @@
 
     </div>
     <div id="content_header"></div>
+    <h5 id="messagedd"><?php echo $loginMessage?></h5>
     <div id="site_content">
       <div id="banner"></div>
 	  <div id="sidebar_container">

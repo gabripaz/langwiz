@@ -36,8 +36,8 @@ if(isset($_GET['Login']))
     }
     else{
         
-        //echo '<script>alert("Invalid Credentials!!")</script>';
-        header("Location:../index.php");
+        
+        header("Location:../index.php?loginMessage=Invalid Credentials!!,Try Again");
     }
    
 }

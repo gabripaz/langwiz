@@ -9,6 +9,7 @@ $userFname=$_SESSION["FName"];
 $userLname=$_SESSION["LName"];
 $userEmail=$_SESSION["email"];
 $message=$_SESSION["message"];
+$userCity=$_SESSION["city"];
 
 
 $sqlStmt="Select Photo from users where Username='$userName'";
@@ -130,7 +131,9 @@ while($rec=mysqli_fetch_array($queryId))
                                 <option value="<?= $laguages?>"><?= $laguages?></option>
                               <?php }?>
                   		  </select>
-                  		  
+                  		  <form action="#" method="get">
+                  		 	 <input type="submit" class="btn btn-warning pull-right" name="usersClose" value="Search Users Close to me"/>
+                  		  </form>
                     </div>
                     </div>
                   
@@ -147,20 +150,28 @@ while($rec=mysqli_fetch_array($queryId))
                   require_once 'Account.Class.php';
                   $connection = new PDO("mysql:host=$hostname; dbname=$dbname",$username, $password);
                   // Searching users
-                  if(isset($_GET['languageSelect'])){
+                  if(isset($_GET['languageSelect']) or isset($_GET['usersClose'])){
                      
                       $lang=$_GET['languageSelect'];
+                      ($_GET['usersClose']=="")?$close="":$close=$_GET['usersClose'];
                       
                       $ac2 =new Account();
+                      if($lang){
                       $ac2->setLanguage($lang);
                       $result=$ac2->searchUserSbyLanguage($connection);
+                      }
+                      else if( $close){
+                          $ac2->setCity($userCity);
+                          $result=$ac2->searchUsersByDistance($connection, 10000,10);
+                      }
                       if(sizeof($result)>0){
                           foreach($result as $data){
                               
                               $firstName=$data["FName"];
                               $lastName=$data["LName"];
                               $photo=$data["Photo"];
-                              $language=$data["LangName"];
+                              $language="Por definir";
+                              //$language=$data["LangName"];
                               $message=$data["personalMsg"];
                               $country=$data["Country"];
                               $city=$data["City"];

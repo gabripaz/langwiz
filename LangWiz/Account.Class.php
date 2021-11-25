@@ -229,11 +229,22 @@ class Account{
 
     // SEARCH USERS BY DISTANCE
     public function searchUsersByDistance($connection, $distance,$limitDisplay){
-        define($EARTH_APROX_RADIUS, 6371);
-        $coords = $this->getLatAndLong();
-        $lat = $coords["Lat"];
-        $long = $coords["Long"];
-        $sqlStmt="SELECT u.FName, u.LName, l.City, l.Country,
+        $EARTH_APROX_RADIUS = 6371;
+        
+        $sqlStmt="SELECT g.GeoLat, g.GeoLong from geolocalization g
+                    JOIN location l on l.GeopositioningID = g.GeopositioningID
+                    WHERE City = :city";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':city', $this->getCity(),PDO::PARAM_STR);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        
+       foreach($result as $data)
+        {        
+            $lat = $data["GeoLat"];
+            $long = $data["GeoLong"];
+       }
+        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.FName, u.LName,u.Photo,u.EmailAddress,u.personalMsg, l.City, l.Country,
                 ($EARTH_APROX_RADIUS * acos(
                  cos( radians(:lat) )
                  * cos( radians( g.GeoLat ) )
@@ -254,21 +265,12 @@ class Account{
         $prepareQuery->bindValue(':long', $long,PDO::PARAM_STR);
         $prepareQuery->execute();
         $result=$prepareQuery->fetchAll();
-        if($result) //modify to get what its necessary
-        {
-            $i=0;
-            while($rec = mysqli_fetch_assoc($queryId))
-            {
-                $Fname=$rec["FName"];
-                $LName= $rec["LName"];
-                $userFound[$i]=array($Fname,$LName);
-                $i++;
-            }
-            return $userFound;
-        }
+       return $result;
+  
     }
      
-     public function getLatAndLong(){
+   /* THIS FUNCTION IS NOT LONGER NEED IT  
+    public function getLatAndLong($connection){
          $sqlStmt="SELECT g.GeoLat, g.GeoLong from geolocalization g 
                     JOIN location l on l.GeopositioningID = g.GeopositioningID 
                     WHERE City = :city";
@@ -284,7 +286,7 @@ class Account{
          }   
          
          return $result;
-     }
+     }*/
     
     //FIND NEAREST CITIES (returns an array of city and country)
     public function searchUserSbyLocation($connection,$distanceKM, $limitDisplay){
