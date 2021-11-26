@@ -13,6 +13,7 @@ $userCity=$_SESSION["city"];
 $userBadges=$_SESSION["badges"];
 $message=$_SESSION["message"];
 
+$nbconnections=$_SESSION["nbofConnections"];    //NUMBER OF CONNECTIONS PER USER TO BE USE IN THE REWARDS 
 
 $sqlStmt="Select Photo from users where Username='$userName'";
 $queryId=mysqli_query($connection, $sqlStmt);
@@ -93,8 +94,8 @@ while($rec=mysqli_fetch_array($queryId))
 
            <ul class="nav nav-pills nav-stacked">
               <li class="active"><a href="userpage.php"> <i class="fa fa-user"></i> Profile</a></li>
-              <li class="active"><a href="SearchOtherUsers.php"> <i class="fa fa-calendar"></i> Meet New People</a></li>
-              <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> My Connections<span class="label label-warning pull-right r-activity">9</span></a></li>
+              <li><a href="SearchOtherUsers.php"> <i class="fa fa-connections"></i> Meet New People</a></li>
+              <li><a href="MyConnections.php" name="seeConnec"> <i class="fa fa-connections"></i> My Connections<span class="label label-warning pull-right r-activity"><?=$nbconnections?></span></a></li>
               <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> Edit profile</a></li>
           </ul>
       </div>

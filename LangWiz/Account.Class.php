@@ -315,5 +315,30 @@ class Account{
         $sqlStmt = "INSERT INTO `connections`(`UserFollowID`, `UserFollowedID`) VALUES ($currentUser,$userFollowed)";
         $connection->exec($sqlStmt);
     }
+    
+    public function getMyConnections($connection){
+        
+        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,u.`personalMsg`,l.LangName,lo.Country,lo.City, b.BadgeDesc
+        FROM connections c
+        LEFT JOIN users u on u.UserID=c.UserFollowedID
+        LEFT JOIN location lo ON lo.LocationID = u.LocationID
+        LEFT JOIN rewardtable r ON u.UserID=r.UserID
+        LEFT JOIN languagespeak lgsp ON lgsp.UserID=u.UserID
+        LEFT JOIN languages l ON lgsp.LangID=l.LangID
+        LEFT JOIN badges b ON r.BadgeID=b.BadgeID
+        WHERE c.UserFollowID=:userID";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':userID',$this->getUserID(),PDO::PARAM_INT);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        
+        
+        return $result;
+        
+    }
+    
+    
+    
+    
 }
 ?>

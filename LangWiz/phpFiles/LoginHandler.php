@@ -39,7 +39,9 @@ if(isset($_GET['Login']))
         
         header("Location:../index.php?loginMessage=Invalid Credentials!!,Try Again");
     }
-   
+    $ac->setUserID($_SESSION["userid"]);
+    $resultconn=$ac->getMyConnections($connection);
+    $_SESSION["myconnections"]=$resultconn;
 }
 
 //STATUS MESSAGE

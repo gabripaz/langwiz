@@ -3,8 +3,11 @@ require_once 'configurationdb.php';
 
 
 session_start();
+$resultconn=$_SESSION["myconnections"];
+$nbconnections=count($resultconn);    //NUMBER OF CONNECTIONS PER USER TO BE USE IN THE REWARDS
+$_SESSION["nbofConnections"]=$nbconnections;   
 
-
+$userID= $_SESSION["userid"];
 $userName=$_SESSION["userName"];
 $userFname=$_SESSION["FName"];
 $userLname=$_SESSION["LName"];
@@ -12,7 +15,6 @@ $userEmail=$_SESSION["email"];
 $message=$_SESSION["message"];
 $userCity=$_SESSION["city"];
 
-$nbconnections=$_SESSION["nbofConnections"];   //NUMBER OF CONNECTIONS PER USER TO BE USE IN THE REWARDS
 
 $sqlStmt="Select Photo from users where Username='$userName'";
 $queryId=mysqli_query($connection, $sqlStmt);
@@ -90,8 +92,8 @@ while($rec=mysqli_fetch_array($queryId))
 
           <ul class="nav nav-pills nav-stacked">
               <li ><a href="userpage.php"> <i class="fa fa-user"></i> Profile</a></li>
-              <li class="active"><a href="SearchOtherUsers.php"> <i class="fa fa-connections"></i> Meet New People</a></li>
-              <li><a href="MyConnections.php" name="seeConnec"><i class="fa fa-connections"></i> My Connections<span class="label label-warning pull-right r-activity"><?=$nbconnections?></span></a></li>
+              <li ><a href="SearchOtherUsers.php"> <i class="fa fa-connections"></i> Meet New People</a></li>
+              <li class="active"><a href="MyConnections.php" name="seeConnec"><i class="fa fa-connections"></i> My Connections<span class="label label-warning pull-right r-activity"><?=$nbconnections?></span></a></li>
               <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> Edit profile</a></li>
           </ul>
       </div>
@@ -113,35 +115,8 @@ while($rec=mysqli_fetch_array($queryId))
           <div class="panel-body bio-graph-info">
              
                 <div id="containerSearchU">
-                  <h2>Select the idioma that you want to paractice</h2>
-               
-                <form action="#" method="get">
-                     <div class="form-group row">
-                    <label for="inputgroup" class="col-sm-2 col-form-label">Language</label>
-                    <div class="col-sm-10">
-                    	  <select name="languageSelect" id="languageSelect" onchange="this.form.submit()">
-                    	   <option value=""></option>
-                    	  <?php  
-                    	 
-                            $sqlStmt="select LangName from languages";
-                            $queryId=mysqli_query($connection, $sqlStmt);
-                            
-                            while($rec=mysqli_fetch_array($queryId)){
-                            $laguages=$rec["LangName"];
-                            
-                    
-                    ?>
-                                <option value="<?= $laguages?>"><?= $laguages?></option>
-                              <?php }?>
-                  		  </select>
-                  		  <form action="#" method="get">
-                  		 	 <input type="submit" class="btn btn-warning pull-right" name="usersClose" value="Search Users Close to me"/>
-                  		  </form>
-                    </div>
-                    </div>
-                  
-                 </form>
-                 
+                  <h2>Your Connections</h2>
+                               
                  </div>
                  <div id="containerTableSearch">
                   
@@ -150,25 +125,9 @@ while($rec=mysqli_fetch_array($queryId))
                  
                   
                   <?php 
-                  require_once 'Account.Class.php';
-                  $connection = new PDO("mysql:host=$hostname; dbname=$dbname",$username, $password);
-                  // Searching users
-                  if(isset($_GET['languageSelect']) or isset($_GET['usersClose'])){
-                     
-                      $lang=$_GET['languageSelect'];
-                      (@$_GET['usersClose']=="")?$close="":$close=$_GET['usersClose'];
-                      
-                      $ac2 =new Account();
-                      if($lang){
-                      $ac2->setLanguage($lang);
-                      $result=$ac2->searchUserSbyLanguage($connection);
-                      }
-                      else if( $close){
-                          $ac2->setCity($userCity);
-                          $result=$ac2->searchUsersByDistance($connection, 10000,10);
-                      }
-                      if(sizeof($result)>0){
-                          foreach($result as $data){
+                  
+                  if(sizeof($resultconn)>0){
+                      foreach($resultconn as $data){
                               $userIdD=$data["UserID"];
                               $firstName=$data["FName"];
                               $lastName=$data["LName"];
@@ -198,7 +157,7 @@ while($rec=mysqli_fetch_array($queryId))
                       <td><span class="descrip">I am from :</span></br><?=$country?></td>
                       <td><span class="descrip">And my city is:</span></br><?=$city?></td>
                       <td><span class="descrip">Something About me :</span></br><?=$message?></td>
-                      <td><button  name="connectbtn" class="btn btn-warning pull-right senduser" value=<?=$userIdD?>>Connect</button></td>
+                      <!--  <td><button  name="connectbtn" class="btn btn-warning pull-right senduser" value=<?=$userIdD?>>Connect</button></td>-->
                     </tr>
                   
                     <?php }}
@@ -206,8 +165,8 @@ while($rec=mysqli_fetch_array($queryId))
                         echo "Sorry! There is not users with that language";
                     }
                     
-                
-                  }
+                  
+                  
                    ?>
                   </tbody>
                 </table>
