@@ -161,4 +161,20 @@ if(isset($_GET['editProfile'])){
         }  
         header("location:../userpage.php");
 }
+
+
+if (!empty($_GET['userConnID'])) {
+    
+    $userFollowed=$_GET['userConnID'];
+    $currentUser=$_SESSION["userid"];
+    $ac12 =new Account();
+    $ac12->setUserID($currentUser);
+    $ac12->createUserConnection($connection, $userFollowed);
+    header("location:../SearchOtherUsers.php");
+}
+
+
+
+
+
 ?>

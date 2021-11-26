@@ -304,10 +304,16 @@ class Account{
         $prepareQuery->bindValue(':country', $this->getCountry(),PDO::PARAM_STR);
         $prepareQuery->bindValue(':city', $this->getCity(),PDO::PARAM_STR);
         $prepareQuery->execute();
-        $result=$prepareQuery->fetchAll();
+        $result=$prepareQuery->fetchAll(); 
         $lat = $result[0]["GeoLat"];
         $long = $result[0]["GeoLong"];
         return getNearPlaces($distanceKM, $limitDisplay, $lat, $long);
-    }    
+    } 
+    
+    public function createUserConnection($connection, $userFollowed){
+        $currentUser=$this->userID;
+        $sqlStmt = "INSERT INTO `connections`(`UserFollowID`, `UserFollowedID`) VALUES ($currentUser,$userFollowed)";
+        $connection->exec($sqlStmt);
+    }
 }
 ?>

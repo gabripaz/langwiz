@@ -4,6 +4,7 @@ require_once 'configurationdb.php';
 
 session_start();
 
+
 $userName=$_SESSION["userName"];
 $userFname=$_SESSION["FName"];
 $userLname=$_SESSION["LName"];
@@ -36,7 +37,7 @@ while($rec=mysqli_fetch_array($queryId))
 	  <script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.form.js"></script>
 	  <script type="text/javascript" src="js/upload.js"></script>
-	
+	<script type="text/javascript" src="js/connection.js"></script>
 </head>
 
 <body>
@@ -89,7 +90,7 @@ while($rec=mysqli_fetch_array($queryId))
           <ul class="nav nav-pills nav-stacked">
               <li ><a href="userpage.php"> <i class="fa fa-user"></i> Profile</a></li>
               <li class="active"><a href="SearchOtherUsers.php"> <i class="fa fa-calendar"></i> Meet New People</a></li>
-              <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> My Connections<span class="label label-warning pull-right r-activity">9</span></a></li>
+              <li><a data-toggle="modal"> <i class="fa fa-edit"></i> My Connections<span class="label label-warning pull-right r-activity">9</span></a></li>
               <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> Edit profile</a></li>
           </ul>
       </div>
@@ -167,19 +168,19 @@ while($rec=mysqli_fetch_array($queryId))
                       }
                       if(sizeof($result)>0){
                           foreach($result as $data){
-                              
+                              $userIdD=$data["UserID"];
                               $firstName=$data["FName"];
                               $lastName=$data["LName"];
                               $photo=$data["Photo"];
-                              //$language="Por definir";
-                              $language=$data["LangName"];//here just need the language in the query
+                              $language=$data["LangName"];
                               $message=$data["personalMsg"];
                               $country=$data["Country"];
                               $city=$data["City"];
+                              
                     ?>
                    
                     <tbody>
-                    
+           
                     <tr>    
                     <td>
                 		<div class="row">
@@ -196,12 +197,15 @@ while($rec=mysqli_fetch_array($queryId))
                       <td><span class="descrip">I am from :</span></br><?=$country?></td>
                       <td><span class="descrip">And my city is:</span></br><?=$city?></td>
                       <td><span class="descrip">Something About me :</span></br><?=$message?></td>
-                      <td><button class="btn btn-warning pull-right">Connect</button></td>
+                      <td><button  name="connectbtn" class="btn btn-warning pull-right senduser" value=<?=$userIdD?>>Connect</button></td>
                     </tr>
+                  
                     <?php }}
                     else{
                         echo "Sorry! There is not users with that language";
                     }
+                    
+                
                   }
                    ?>
                   </tbody>

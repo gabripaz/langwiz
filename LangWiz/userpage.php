@@ -93,7 +93,8 @@ while($rec=mysqli_fetch_array($queryId))
 
            <ul class="nav nav-pills nav-stacked">
               <li class="active"><a href="userpage.php"> <i class="fa fa-user"></i> Profile</a></li>
-              <li><a href="SearchOtherUsers.php"> <i class="fa fa-calendar"></i> Meet New People <span class="label label-warning pull-right r-activity">9</span></a></li>
+              <li class="active"><a href="SearchOtherUsers.php"> <i class="fa fa-calendar"></i> Meet New People</a></li>
+              <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> My Connections<span class="label label-warning pull-right r-activity">9</span></a></li>
               <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> Edit profile</a></li>
           </ul>
       </div>

@@ -3,6 +3,7 @@ require_once 'configurationdb.php';
 
 $cName=$_GET['countryName'];
 
+
 if(!empty($cName)){
     $sqlStmt="select City from location where Country='$cName'";
 

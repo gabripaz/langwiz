@@ -1,8 +1,14 @@
 <?php
+
+/*$latLong=$_GET['place'];
+$result=(explode("/",$latLong));
+$lat=$result[0];
+$long=$result[1];
+var_dump($latLong);*/
 function getNearPlaces($distanceKM, $limitDisplay, $lat, $long) {
     require_once 'configurationdb';
     $arCities = array();
-    define($EARTH_APROX_RADIUS, 6371);
+    $EARTH_APROX_RADIUS=6371;
     $queryId = mysqli_query($conection, $sqlStmt);
     $sqlQuery = "SELECT g.GeopositioningID, l.City, l.Country,
                 ($EARTH_APROX_RADIUS * acos(
@@ -55,8 +61,9 @@ function success(position) {
     //Now we just have to pass the values to the function in php to get the city
     //something like this
     var arrContryAndCity = ';
-echo getNearPlaces(1,1,latitude,longitude);
-echo 'document.getElementById("firstOption").value = arrContryAndCity[0];
-  document.getElementById("cityFirstOption").value = arrContryAndCity[1];
-    };';
+//$rec= getNearPlaces(1,1,$lat,$long);
+//echo json_encode($rec);
+//echo 'document.getElementById("firstOption").value = arrContryAndCity[0];
+ // document.getElementById("cityFirstOption").value = arrContryAndCity[1];
+ //   };';
 ?>
