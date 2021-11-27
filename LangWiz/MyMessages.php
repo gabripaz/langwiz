@@ -132,6 +132,8 @@ while($rec=mysqli_fetch_array($queryId))
                   
                   if(sizeof($resultconn)>0){
                       foreach($resultMessages as $data){
+                          $message=$data["conenctionMessage"];
+                          if(!empty($message)){
                               $userNm=$data["Username"];
                               $firstName=$data["FName"];
                               $lastName=$data["LName"];
@@ -176,12 +178,12 @@ while($rec=mysqli_fetch_array($queryId))
                     </tr>
                       </tbody>
                 </table>
-                    <?php }}
-                    else{
-                        echo "Ups! You don't have messages yet check later =(";
-                    }
+                    <?php }
+                   
+                      } }
+                   
                     
-                  
+                 
                   
                    ?>
               
