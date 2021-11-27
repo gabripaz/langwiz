@@ -3,7 +3,8 @@ require_once 'configurationdb.php';
 
 
 session_start();
-
+$message1=$_SESSION["message1"];
+var_dump($message1);
 
 $userName=$_SESSION["userName"];
 $userFname=$_SESSION["FName"];
@@ -12,7 +13,11 @@ $userEmail=$_SESSION["email"];
 $message=$_SESSION["message"];
 $userCity=$_SESSION["city"];
 
-$nbconnections=$_SESSION["nbofConnections"];   //NUMBER OF CONNECTIONS PER USER TO BE USE IN THE REWARDS
+$resultconn=$_SESSION["myconnections"];
+$nbconnections=count($resultconn);
+
+$resultMessages=$_SESSION["mymessages"];
+$nbMessagess=count($resultMessages);
 
 $sqlStmt="Select Photo from users where Username='$userName'";
 $queryId=mysqli_query($connection, $sqlStmt);
@@ -92,6 +97,7 @@ while($rec=mysqli_fetch_array($queryId))
               <li ><a href="userpage.php"> <i class="fa fa-user"></i> Profile</a></li>
               <li class="active"><a href="SearchOtherUsers.php"> <i class="fa fa-connections"></i> Meet New People</a></li>
               <li><a href="MyConnections.php" name="seeConnec"><i class="fa fa-connections"></i> My Connections<span class="label label-warning pull-right r-activity"><?=$nbconnections?></span></a></li>
+               <li><a href="MyMessages.php" name="seeMess"><i class="fa fa-connections"></i> My Messages<span class="label label-warning pull-right r-activity"><?=$nbMessagess?></span></a></li>
               <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> Edit profile</a></li>
           </ul>
       </div>
@@ -156,7 +162,7 @@ while($rec=mysqli_fetch_array($queryId))
                   if(isset($_GET['languageSelect']) or isset($_GET['usersClose'])){
                      
                       $lang=$_GET['languageSelect'];
-                      (@$_GET['usersClose']=="")?$close="":$close=$_GET['usersClose'];
+                      (empty($_GET['usersClose']))?$close="":$close=$_GET['usersClose'];
                       
                       $ac2 =new Account();
                       if($lang){
@@ -200,7 +206,7 @@ while($rec=mysqli_fetch_array($queryId))
                       <td><span class="descrip">Something About me :</span></br><?=$message?></td>
                       <td><button  name="connectbtn" class="btn btn-warning pull-right senduser" value=<?=$userIdD?>>Connect</button></td>
                     </tr>
-                  
+                 
                     <?php }}
                     else{
                         echo "Sorry! There is not users with that language";

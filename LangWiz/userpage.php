@@ -13,7 +13,11 @@ $userCity=$_SESSION["city"];
 $userBadges=$_SESSION["badges"];
 $message=$_SESSION["message"];
 
-$nbconnections=$_SESSION["nbofConnections"];    //NUMBER OF CONNECTIONS PER USER TO BE USE IN THE REWARDS 
+$resultconn=$_SESSION["myconnections"];
+$nbconnections=count($resultconn);//NUMBER OF CONNECTIONS PER USER TO BE USE IN THE REWARDS 
+
+$resultMessages=$_SESSION["mymessages"];
+$nbMessagess=count($resultMessages);
 
 $sqlStmt="Select Photo from users where Username='$userName'";
 $queryId=mysqli_query($connection, $sqlStmt);
@@ -96,6 +100,7 @@ while($rec=mysqli_fetch_array($queryId))
               <li class="active"><a href="userpage.php"> <i class="fa fa-user"></i> Profile</a></li>
               <li><a href="SearchOtherUsers.php"> <i class="fa fa-connections"></i> Meet New People</a></li>
               <li><a href="MyConnections.php" name="seeConnec"> <i class="fa fa-connections"></i> My Connections<span class="label label-warning pull-right r-activity"><?=$nbconnections?></span></a></li>
+               <li><a href="MyMessages.php" name="seeMess"><i class="fa fa-connections"></i> My Messages<span class="label label-warning pull-right r-activity"><?=$nbMessagess?></span></a></li>
               <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> Edit profile</a></li>
           </ul>
       </div>
@@ -146,7 +151,7 @@ while($rec=mysqli_fetch_array($queryId))
                   	<div id="badgeimg"></div>
                       <div class="panel-body">
                           <div class="bio-chart">
-                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="250" data-fgcolor="#e06b7d" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;"></div>
+                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="250" data-fgcolor="#e06b7d" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;" readonly></div>
                           </div>
                           <div class="bio-desk">
                               <h4 class="red">Langwiz Badges</h4>
@@ -161,12 +166,12 @@ while($rec=mysqli_fetch_array($queryId))
                       <div class="panel-body">
                       	<div id="meetingsimg"></div>
                           <div class="bio-chart">
-                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="15" data-fgcolor="#4CC5CD" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(76, 197, 205); padding: 0px; -webkit-appearance: none; background: none;"></div>
+                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value=<?=$nbconnections?> data-fgcolor="#4CC5CD" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(76, 197, 205); padding: 0px; -webkit-appearance: none; background: none;" readonly></div>
                           </div>
                           <div class="bio-desk">
-                              <h4 class="terques">Meetings</h4>
-                              <p>Last week: 3</p>
-                              <p>Last month 12</p>
+                              <h4 class="terques">Connections</h4>
+                              <p>Your connections <span><?=$nbconnections?></span></p>
+                              <p>Messages <span><?=$nbMessagess?></span></p>
                           </div>
                       </div>
                   </div>
@@ -176,7 +181,7 @@ while($rec=mysqli_fetch_array($queryId))
                       <div class="panel-body">
                       <div id="rewardsimg"></div>
                           <div class="bio-chart">
-                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="3652" data-fgcolor="#96be4b" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(150, 190, 75); padding: 0px; -webkit-appearance: none; background: none;"></div>
+                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="3652" data-fgcolor="#96be4b" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(150, 190, 75); padding: 0px; -webkit-appearance: none; background: none;" readonly></div>
                           </div>
                           <div class="bio-desk">
                               <h4 class="green">Rewards</h4>
@@ -191,7 +196,7 @@ while($rec=mysqli_fetch_array($queryId))
                   <div id="langimg"></div>
                       <div class="panel-body">
                           <div class="bio-chart">
-                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="2" data-fgcolor="#cba4db" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(203, 164, 219); padding: 0px; -webkit-appearance: none; background: none;"></div>
+                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="2" data-fgcolor="#cba4db" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(203, 164, 219); padding: 0px; -webkit-appearance: none; background: none;" readonly></div>
                           </div>
                           <div class="bio-desk">
                               <h4 class="purple">Language</h4>

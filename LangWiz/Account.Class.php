@@ -202,7 +202,12 @@ class Account{
                     $connection=$arg[0];
                     $sqlStmt="Update `users` set personalMsg='$messg' where UserID=$userID";
                     break;
-               
+                case 7:
+                    $connection=$arg[0];
+                    $userFolloedId=$arg[1];
+                    $messg=$arg[2];
+                    $sqlStmt=" UPDATE `connections` SET `conenctionMessage`='$messg' WHERE `UserFollowID`=$userID && `UserFollowedID`=$userFolloedId";
+                    break;
             }
             $result = $connection->exec($sqlStmt);
             return $result;
@@ -336,9 +341,34 @@ class Account{
         return $result;
         
     }
+   
+    public function getMyMessages($connection){
+        
+        $sqlStmt="SELECT u.`Username`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,l.LangName,lo.Country,lo.City,c.`conenctionMessage`,b.BadgeDesc
+        FROM connections c
+        LEFT JOIN users u on u.UserID=c.UserFollowID
+        LEFT JOIN location lo ON lo.LocationID = u.LocationID
+        LEFT JOIN rewardtable r ON u.UserID=r.UserID
+        LEFT JOIN languagespeak lgsp ON lgsp.UserID=u.UserID
+        LEFT JOIN languages l ON lgsp.LangID=l.LangID
+        LEFT JOIN badges b ON r.BadgeID=b.BadgeID
+        WHERE c.UserFollowedID=:userID";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':userID',$this->getUserID(),PDO::PARAM_INT);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        
+        
+        return $result;
+        
+    }
+    //DELETE FROM `connections` WHERE `connections`.`UserFollowID` = 1 AND `connections`.`UserFollowedID` = 1"?
     
-    
-    
+    public function deleteUserConnection($connection, $userFollowed){
+        $currentUser=$this->userID;
+        $sqlStmt = "DELETE FROM `connections` WHERE `connections`.`UserFollowID` = $currentUser AND `connections`.`UserFollowedID` = $userFollowed";
+        $connection->exec($sqlStmt);
+    }
     
 }
 ?>

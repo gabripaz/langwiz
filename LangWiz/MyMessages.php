@@ -6,6 +6,7 @@ session_start();
 $resultconn=$_SESSION["myconnections"];
 $nbconnections=count($resultconn);    //NUMBER OF CONNECTIONS PER USER TO BE USE IN THE REWARDS
 
+
 $resultMessages=$_SESSION["mymessages"];
 $nbMessagess=count($resultMessages);
 
@@ -95,8 +96,8 @@ while($rec=mysqli_fetch_array($queryId))
           <ul class="nav nav-pills nav-stacked">
               <li ><a href="userpage.php"> <i class="fa fa-user"></i> Profile</a></li>
               <li ><a href="SearchOtherUsers.php"> <i class="fa fa-connections"></i> Meet New People</a></li>
-              <li class="active"><a href="MyConnections.php" name="seeConnec"><i class="fa fa-connections"></i> My Connections<span class="label label-warning pull-right r-activity"><?=$nbconnections?></span></a></li>
-              <li><a href="MyMessages.php" name="seeMess"><i class="fa fa-connections"></i> My Messages<span class="label label-warning pull-right r-activity"><?=$nbMessagess?></span></a></li>
+              <li><a href="MyConnections.php" name="seeConnec"><i class="fa fa-connections"></i> My Connections<span class="label label-warning pull-right r-activity"><?=$nbconnections?></span></a></li>
+             <li class="active"><a href="MyMessages.php" name="seeMess"><i class="fa fa-connections"></i> My Messages<span class="label label-warning pull-right r-activity"><?=$nbMessagess?></span></a></li>
               <li><a data-toggle="modal" data-target="#modalUpdate"> <i class="fa fa-edit"></i> Edit profile</a></li>
           </ul>
       </div>
@@ -118,10 +119,8 @@ while($rec=mysqli_fetch_array($queryId))
           <div class="panel-body bio-graph-info">
              
                 <div id="containerSearchU">
-                  <h2>Your Connections</h2>
+                  <h2>Your Messages</h2>
                
-                  		 	 <input type="button"  data-toggle="modal" data-target="#modalSendMessage" class="btn btn-warning pull-right" name="usersClose" value="Send a message"/>
-                  		            
                  </div>
                  <div id="containerTableSearch">
                   
@@ -132,49 +131,60 @@ while($rec=mysqli_fetch_array($queryId))
                   <?php 
                   
                   if(sizeof($resultconn)>0){
-                      foreach($resultconn as $data){
-                              $userIdD=$data["UserID"];
+                      foreach($resultMessages as $data){
+                              $userNm=$data["Username"];
                               $firstName=$data["FName"];
                               $lastName=$data["LName"];
                               $photo=$data["Photo"];
                               $language=$data["LangName"];
-                              $message=$data["personalMsg"];
+                              $message=$data["conenctionMessage"];
                               $country=$data["Country"];
                               $city=$data["City"];
                               $email=$data["EmailAddress"]; 
                     ?>
-                   
+                    <table id="table2" >
                     <tbody>
-           
+           			<tr>
+               			  <td>
+                    		<div class="row">
+                              <div class="picCol">
+                                          
+                                   <img id="userPict" src=<?=$photo?> alt="userphoto"/>
+                                
+                              </div>
+                              
+                            </div>
+                   		 </td>       
+               				<td><?php echo "The user $userNm sent you a message :"?></td>
+           			</tr>
+           			<tr>
+               			<td colspan=2>Contact Information</td>
+               		</tr>
+               		<tr>
+               			<td><span class="descrip">Name :</span></br><?php echo "$firstName $lastName"?></td>
+               			<td><span class="descrip">Language :</span></br><?=$language?></td>
+           			</tr>
+           			<tr>
+               			<td><span class="descrip">Email :</span></br><?=$email?></td>
+               			<td><span class="descrip">From :</span></br><?php echo "$country $city"?></td>
+           			
+           			</tr>
                     <tr>    
-                    <td>
-                		<div class="row">
-                          <div class="picCol">
-                                      
-                               <img id="userPict" src=<?=$photo?> alt="userphoto"/>
-                            
-                          </div>
-                          
-                        </div>
-               		 </td>        
-                      <td><span class="descrip">My name is :</span></br><?php echo "$firstName $lastName"?></td>
-                      <td><span class="descrip">I speak :</span></br><?=$language?></td>
-                      <td><span class="descrip">Contact me :</span></br><?=$email?></td>
-                      <td><span class="descrip">I am from :</span></br><?php echo "$country $city"?></td>
-                      <td><span class="descrip">Something About me :</span></br><?=$message?></td>
-                      <td><button  name="connectbtn" class="btn btn-warning pull-right deleteuser" value=<?=$userIdD?>>Delete</button></td>
+                    
+                      <td colspan=2><span class="descrip">Message :</span></br><?=$message?></td>
+                      
                     </tr>
-                  
+                      </tbody>
+                </table>
                     <?php }}
                     else{
-                        echo "Ups! You don't have any connections =(";
+                        echo "Ups! You don't have messages yet check later =(";
                     }
                     
                   
                   
                    ?>
-                  </tbody>
-                </table>
+              
                 </div>
  
           </div>

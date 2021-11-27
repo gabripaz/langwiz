@@ -42,6 +42,9 @@ if(isset($_GET['Login']))
     $ac->setUserID($_SESSION["userid"]);
     $resultconn=$ac->getMyConnections($connection);
     $_SESSION["myconnections"]=$resultconn;
+    $resultMessages=$ac->getMyMessages($connection);
+    
+    $_SESSION["mymessages"]=$resultMessages;
 }
 
 //STATUS MESSAGE
@@ -172,11 +175,33 @@ if (!empty($_GET['userConnID'])) {
     $ac12 =new Account();
     $ac12->setUserID($currentUser);
     $ac12->createUserConnection($connection, $userFollowed);
-    header("location:../SearchOtherUsers.php");
+    $resultconn=$ac12->getMyConnections($connection);
+    $_SESSION["myconnections"]=$resultconn;
+    
+}
+
+if (!empty($_GET['userConnidDelete'])) {
+   
+    $userFollowed=$_GET['userConnidDelete'];
+    $currentUser=$_SESSION["userid"];
+    $ac13 =new Account();
+    $ac13->setUserID($currentUser);
+    $ac13->deleteUserConnection($connection, $userFollowed);
+    $resultconn=$ac13->getMyConnections($connection);
+    $_SESSION["myconnections"]=$resultconn;
 }
 
 
 
-
+if(isset($_GET['sendMessage'])){
+    $message=$_GET['mymessge'];
+    $userFolloedId=$_GET['userselect'];
+    $currentUser=$_SESSION["userid"];
+    $ac14 =new Account();
+    $ac14->setUserID($currentUser);
+    $ac14->update($connection,$userFolloedId,$message,"4","5","6","7");
+   
+    header("location:../MyConnections.php");
+}
 
 ?>
