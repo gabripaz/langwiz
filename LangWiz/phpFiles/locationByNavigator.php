@@ -1,5 +1,4 @@
 <?php
-function getNearPlaces() {
     require_once 'configurationdb';
     $arCities = array();
     $lat=$_GET['latitude'];
@@ -29,4 +28,4 @@ function getNearPlaces() {
         $arCities[$City]=$Country;        
     }   
     echo json_encode($arCities);
-}?>
+?>
