@@ -31,6 +31,7 @@ function getNearPlaces($distanceKM, $limitDisplay, $lat, $long) {
             $Country= $rec["Country"];
             $arCities[$City]=$Country;
         }
+        echo json_encode($arCities);
         return $arCities;
     }   
 }
