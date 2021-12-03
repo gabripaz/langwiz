@@ -97,7 +97,7 @@
          <select name="countryselect" id="countryselect" class="form-control validate" required>
     	   <option value="" id = "firstOption"></option>
          
-            <?php
+            <?php              
               $sqlStmt="Select Distinct Country from location ORDER BY Country";
               $queryId=mysqli_query($connection, $sqlStmt);
               while($rec=mysqli_fetch_array($queryId))
