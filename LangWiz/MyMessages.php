@@ -57,7 +57,7 @@ while($rec=mysqli_fetch_array($queryId))
         <div id="logo_text">
 		
          
-          <h1><a href="index.html">Lang<span class="logo_colour">Wiz</span></a></h1>
+          <h1><a href="index.php">Lang<span class="logo_colour">Wiz</span></a></h1>
           <h2>The new way to learn a new language</h2>
 		  <div id="loginbox">
 
