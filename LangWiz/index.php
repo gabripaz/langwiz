@@ -266,9 +266,9 @@
          </div>
          <div id="Mission">
              <h2 class="title2">Our Mission</h2>
-             <p>In Lanwiz we understand that everyone learn in a different way. Or mision is to create a plataform that allows were millions of people can learn at once and help eachother.
+             <p>In Lanwiz we understand that everyone learn in a different way. Or mision is to create a platform that allows people to learn at once and help each other.
              </br>Beyond the classroom, in LangWiz you can share experiences, culture, and hear first-hand the correct pronunciation of the language you want to learn.
-             </br>Our ultimate goal is that everyone have the oportunity of learn and connect with more people through technology.</p>
+             </br>Our ultimate goal is that everyone have the opportunity of learn and connect with more people through technology.</p>
          </div>
      </div>
       <span id="contactusmark"></span>
