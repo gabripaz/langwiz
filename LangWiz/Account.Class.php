@@ -111,6 +111,9 @@ class Account{
         //Inserting Data into languagespeak 
         $sqlStmt="INSERT INTO `languagespeak` (`LangID`, `UserID`) VALUES ($languageID,$userID)";
         $result2=$connection->exec($sqlStmt);
+        $rewardId=100;
+        $sqlStmt="INSERT INTO `rewardtable`(`BadgeID`, `UserID`) VALUES ($rewardId,$userID)";
+        $result3=$connection->exec($sqlStmt);
         
         return $result;
         
@@ -146,7 +149,7 @@ class Account{
     
     public function searchUserInformation($connection){
         $userName=$this->userName;
-        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,u.`personalMsg`,l.LangName,lo.Country,lo.City, b.BadgeDesc 
+        $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,u.`personalMsg`,l.LangName,lo.Country,lo.City, b.BadgeID,b.BadgeDesc 
         FROM users u
         LEFT JOIN location lo ON lo.LocationID = u.LocationID
         LEFT JOIN rewardtable r ON u.UserID=r.UserID
@@ -207,6 +210,32 @@ class Account{
                     $userFolloedId=$arg[1];
                     $messg=$arg[2];
                     $sqlStmt=" UPDATE `connections` SET `conenctionMessage`='$messg' WHERE `UserFollowID`=$userID && `UserFollowedID`=$userFolloedId";
+                    break;
+                case 8:
+                    $connection=$arg[0];
+                    $nbConnections=$arg[1];
+                    if($nbConnections>=0 && $nbConnections<=20){
+                        $rewardId=100;
+                    }
+                    elseif ($nbConnections>20 && $nbConnections<=40)
+                    {
+                        $rewardId=200;
+                    }
+                    elseif ($nbConnections>40 && $nbConnections<=70)
+                    {
+                        $rewardId=300;
+                    }
+                    elseif ($nbConnections>70 && $nbConnections<=100)
+                    {
+                        $rewardId=400;
+                    }
+                    else{
+                        $rewardId=500;
+                    }
+                    
+                   
+                    $sqlStmt=" UPDATE `rewardtable` SET `BadgeID`=$rewardId WHERE `UserID`=$userID";
+                   
                     break;
             }
             $result = $connection->exec($sqlStmt);
@@ -358,7 +387,6 @@ class Account{
         $prepareQuery->execute();
         $result=$prepareQuery->fetchAll();
         
-        
         return $result;
         
     }
@@ -369,26 +397,32 @@ class Account{
         $sqlStmt = "DELETE FROM `connections` WHERE `connections`.`UserFollowID` = $currentUser AND `connections`.`UserFollowedID` = $userFollowed";
         $connection->exec($sqlStmt);
     }
-    public function calculateRewards($connection){
+   /* public function searchRewards($connection){
         
-        $sqlStmt="Select `UserID` from `users` where `Username`=:username";
-        $prepareQuery= $connection ->prepare($sqlStmt);
-        $prepareQuery->bindValue(':username', $this->getUserName(),PDO::PARAM_STR);
-        $prepareQuery->execute();
-        $result=$prepareQuery->fetchAll();
+        $currentUser=$this->userID;
+        if($nbConnections>=0){
+            $rewardId=100;
+        }
+        else if ($nbConnections>20)
+        {
+            $rewardId=200;
+        }
+        else if ($nbConnections>40)
+        {
+            $rewardId=300;
+        }
+        else if ($nbConnections>70)
+        {
+            $rewardId=400;
+        }
+        else{
+            $rewardId=500;
+        }
         
-        $number1= ($result[0]['UserID']);
         
-        
-        
-        $sqlStmt="SELECT `Password` FROM `accounts` WHERE `UserID`=:userId";
-        $prepareQuery= $connection ->prepare($sqlStmt);
-        $prepareQuery->bindValue(':userId',$userId,PDO::PARAM_STR);
-        $prepareQuery->execute();
-        $result=$prepareQuery->fetchAll();
-        
-        $passSaved=($result[0]['Password']);
-    }
+        $sqlStmt="INSERT INTO `rewardtable`(`BadgeID`, `UserID`) VALUES ($rewardId,$currentUser)";
+        $result=$connection->exec($sqlStmt);
+    }*/
     
 }
 ?>

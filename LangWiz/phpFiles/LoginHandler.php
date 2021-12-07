@@ -30,6 +30,7 @@ if(isset($_GET['Login']))
             $_SESSION["lang"]=$result[0]["LangName"];
             $_SESSION["country"]=$result[0]["Country"];
             $_SESSION["city"]=$result[0]["City"];
+            $_SESSION["badgesNumber"]=$result[0]["BadgeID"];
             $_SESSION["badges"]=$result[0]["BadgeDesc"];
             $_SESSION["message"]=$result[0]["personalMsg"];
         }
@@ -39,12 +40,18 @@ if(isset($_GET['Login']))
         
         header("Location:../index.php?loginMessage=Invalid Credentials!!,Try Again");
     }
+    
     $ac->setUserID($_SESSION["userid"]);
     $resultconn=$ac->getMyConnections($connection);
     $_SESSION["myconnections"]=$resultconn;
     $resultMessages=$ac->getMyMessages($connection);
     
     $_SESSION["mymessages"]=$resultMessages;
+    
+    $nbconections=count($resultconn);
+    $ac->update($connection,$nbconections,"3","4","5","6","7","8");
+    
+   
 }
 
 //STATUS MESSAGE
@@ -177,6 +184,8 @@ if (!empty($_GET['userConnID'])) {
     $ac12->createUserConnection($connection, $userFollowed);
     $resultconn=$ac12->getMyConnections($connection);
     $_SESSION["myconnections"]=$resultconn;
+    $nbconections=count($resultconn);
+    $ac12->update($connection,$nbconections,"3","4","5","6","7","8");
     
 }
 
@@ -189,6 +198,9 @@ if (!empty($_GET['userConnidDelete'])) {
     $ac13->deleteUserConnection($connection, $userFollowed);
     $resultconn=$ac13->getMyConnections($connection);
     $_SESSION["myconnections"]=$resultconn;
+    $nbconections=count($resultconn);
+    $ac13->update($connection,$nbconections,"3","4","5","6","7","8");
+    header("location:../MyConnections.php");
 }
 
 

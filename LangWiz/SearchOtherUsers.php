@@ -2,7 +2,9 @@
 require_once 'configurationdb.php';
 
 session_start();
-$message1=$_SESSION["message1"];
+$message1="";
+if($_SESSION["message1"]!=""){
+    $message1=$_SESSION["message1"];}
 //var_dump($message1);
 
 $userName=$_SESSION["userName"];
