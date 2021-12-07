@@ -125,8 +125,7 @@ while($rec=mysqli_fetch_array($queryId))
                  <div id="containerTableSearch">
                   
                     
-                    <table id="table2" >
-                 
+                   
                   
                   <?php 
                   
@@ -144,7 +143,7 @@ while($rec=mysqli_fetch_array($queryId))
                               $city=$data["City"];
                               $email=$data["EmailAddress"]; 
                     ?>
-                    <table id="table2" >
+                    <table id="tableMessages" >
                     <tbody>
            			<tr>
                			  <td>
@@ -157,7 +156,7 @@ while($rec=mysqli_fetch_array($queryId))
                               
                             </div>
                    		 </td>       
-               				<td><?php echo "The user $userNm sent you a message :"?></td>
+               				<td><strong><?php echo "The user $userNm sent you a message :"?></strong></td>
            			</tr>
            			<tr>
                			<td colspan=2>Contact Information</td>

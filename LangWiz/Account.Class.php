@@ -362,12 +362,32 @@ class Account{
         return $result;
         
     }
-    //DELETE FROM `connections` WHERE `connections`.`UserFollowID` = 1 AND `connections`.`UserFollowedID` = 1"?
+
     
     public function deleteUserConnection($connection, $userFollowed){
         $currentUser=$this->userID;
         $sqlStmt = "DELETE FROM `connections` WHERE `connections`.`UserFollowID` = $currentUser AND `connections`.`UserFollowedID` = $userFollowed";
         $connection->exec($sqlStmt);
+    }
+    public function calculateRewards($connection){
+        
+        $sqlStmt="Select `UserID` from `users` where `Username`=:username";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':username', $this->getUserName(),PDO::PARAM_STR);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        
+        $number1= ($result[0]['UserID']);
+        
+        
+        
+        $sqlStmt="SELECT `Password` FROM `accounts` WHERE `UserID`=:userId";
+        $prepareQuery= $connection ->prepare($sqlStmt);
+        $prepareQuery->bindValue(':userId',$userId,PDO::PARAM_STR);
+        $prepareQuery->execute();
+        $result=$prepareQuery->fetchAll();
+        
+        $passSaved=($result[0]['Password']);
     }
     
 }
