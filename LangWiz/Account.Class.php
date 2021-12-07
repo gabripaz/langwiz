@@ -352,7 +352,7 @@ class Account{
         LEFT JOIN languagespeak lgsp ON lgsp.UserID=u.UserID
         LEFT JOIN languages l ON lgsp.LangID=l.LangID
         LEFT JOIN badges b ON r.BadgeID=b.BadgeID
-        WHERE c.UserFollowedID=:userID";
+        WHERE c.UserFollowedID=:userID and c.`conenctionMessage`<>'null'";
         $prepareQuery= $connection ->prepare($sqlStmt);
         $prepareQuery->bindValue(':userID',$this->getUserID(),PDO::PARAM_INT);
         $prepareQuery->execute();
