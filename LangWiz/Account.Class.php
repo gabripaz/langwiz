@@ -67,8 +67,8 @@ class Account{
         return $result[0]['UserID'];
         
     }
-    public function createAccount($connection) {
-      //search the location Id 
+    
+    public function searchLocationId($connection){
         $sqlStmt="Select `LocationID` from `location` where `City`=:city";
         $prepareQuery= $connection ->prepare($sqlStmt);
         $prepareQuery->bindValue(':city', $this->getCity(),PDO::PARAM_STR);
@@ -76,7 +76,9 @@ class Account{
         $result=$prepareQuery->fetchAll();
         
         $locationID=($result[0]['LocationID']);
-        //search the language Id 
+        return $locationID;
+    }
+    public function searchLanguagebyID($connection){
         $sqlStmt="SELECT `LangID` FROM `languages` WHERE `LangName`=:lang";
         $prepareQuery= $connection ->prepare($sqlStmt);
         $prepareQuery->bindValue(':lang', $this->getLanguage(),PDO::PARAM_STR);
@@ -84,7 +86,24 @@ class Account{
         $result=$prepareQuery->fetchAll();
         
         $languageID=($result[0]['LangID']);
+        return $languageID;
         
+    }
+    public function searchUserIdByName($connection){
+        $sqlStmt="Select `UserID` from `users` where `Username`=:username";
+         $prepareQuery= $connection ->prepare($sqlStmt);
+         $prepareQuery->bindValue(':username', $this->getUserName(),PDO::PARAM_STR);
+         $prepareQuery->execute();
+         $result=$prepareQuery->fetchAll();
+         
+         $userID=($result[0]['UserID']);
+         return $userID;
+        
+    }
+    public function createAccount($connection) {
+      
+        $locationID=$this->searchLocationId($connection);
+        $languageID=$this->searchLanguagebyID($connection);
       
        $userName=$this->userName;
        $firstName=$this->firstName;
@@ -98,13 +117,8 @@ class Account{
         VALUES ('$userName','$firstName','$lastName','$photo',$locationID,'$email')";
         $result=$connection->exec($sqlStmt);
         //Searching the asigned user Id
-        $sqlStmt="Select `UserID` from `users` where `Username`=:username";
-        $prepareQuery= $connection ->prepare($sqlStmt);
-        $prepareQuery->bindValue(':username', $this->getUserName(),PDO::PARAM_STR);
-        $prepareQuery->execute();
-        $result=$prepareQuery->fetchAll();
-        
-        $userID=($result[0]['UserID']);
+       
+        $userID=$this->searchUserIdByName($connection);
         //Inserting Data into accounts 
         $sqlStmt="INSERT INTO `accounts`(`UserID`, `Password`) VALUES ($userID,'$password')";
         $result1=$connection->exec($sqlStmt);
@@ -397,32 +411,7 @@ class Account{
         $sqlStmt = "DELETE FROM `connections` WHERE `connections`.`UserFollowID` = $currentUser AND `connections`.`UserFollowedID` = $userFollowed";
         $connection->exec($sqlStmt);
     }
-   /* public function searchRewards($connection){
-        
-        $currentUser=$this->userID;
-        if($nbConnections>=0){
-            $rewardId=100;
-        }
-        else if ($nbConnections>20)
-        {
-            $rewardId=200;
-        }
-        else if ($nbConnections>40)
-        {
-            $rewardId=300;
-        }
-        else if ($nbConnections>70)
-        {
-            $rewardId=400;
-        }
-        else{
-            $rewardId=500;
-        }
-        
-        
-        $sqlStmt="INSERT INTO `rewardtable`(`BadgeID`, `UserID`) VALUES ($rewardId,$currentUser)";
-        $result=$connection->exec($sqlStmt);
-    }*/
+ 
     
 }
 ?>
