@@ -1,5 +1,5 @@
 <?php
-
+/*This is in progress we couldn't finish this funcionality*/
 /*$latLong=$_GET['place'];
 $result=(explode("/",$latLong));
 $lat=$result[0];

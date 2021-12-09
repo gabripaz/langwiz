@@ -405,7 +405,6 @@ class Account{
         
     }
 
-    
     public function deleteUserConnection($connection, $userFollowed){
         $currentUser=$this->userID;
         $sqlStmt = "DELETE FROM `connections` WHERE `connections`.`UserFollowID` = $currentUser AND `connections`.`UserFollowedID` = $userFollowed";
