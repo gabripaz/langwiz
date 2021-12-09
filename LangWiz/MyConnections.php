@@ -126,7 +126,7 @@ while($rec=mysqli_fetch_array($queryId))
                  <div id="containerTableSearch">
                   
                     
-                    <table id="table2" >
+                    <table class="table2" >
                  
                   
                   <?php 
@@ -157,11 +157,12 @@ while($rec=mysqli_fetch_array($queryId))
                           
                         </div>
                		 </td>        
-                      <td><span class="descrip">My name is :</span></br><?php echo "$firstName $lastName"?></td>
-                      <td><span class="descrip">I speak :</span></br><?=$language?></td>
-                      <td><span class="descrip">Contact me :</span></br><?=$email?></td>
-                      <td><span class="descrip">I am from :</span></br><?php echo "$country $city"?></td>
-                      <td><span class="descrip">Something About me :</span></br><?=$message?></td>
+                      <td style="margin-left: 10px;margin-right: 25px;padding-right: 25px;">
+                      <span class="descrip">My name is</span></br><?php echo "$firstName $lastName"?></td>
+                      <td><span class="descrip">I speak</span></br><?=$language?></td>
+                      <td><span class="descrip">Contact me</span></br><?=$email?></td>
+                      <td><span class="descrip">I am from</span></br><?php echo "$country $city"?></td>
+                      <td><span class="descrip">Something About me</span></br><?=$message?></td>
                       <td><button  name="connectbtn" class="btn btn-warning pull-right deleteuser" value=<?=$userIdD?>>Delete</button></td>
                     </tr>
                   

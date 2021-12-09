@@ -3,9 +3,9 @@ require_once 'configurationdb.php';
 
 session_start();
 $message1="";
-if($_SESSION["message1"]!=""){
+if(isset($_SESSION["message1"])){
     $message1=$_SESSION["message1"];}
-//var_dump($message1);
+
 
 $userName=$_SESSION["userName"];
 $userFname=$_SESSION["FName"];
@@ -120,7 +120,7 @@ while($rec=mysqli_fetch_array($queryId))
           <div class="panel-body bio-graph-info">
              
                 <div id="containerSearchU">
-                  <h2>Select the idioma that you want to paractice</h2>
+                  <h2>Select the language that you want to paractice</h2>
                
                 <form action="#" method="get">
                      <div class="form-group row">
@@ -153,7 +153,7 @@ while($rec=mysqli_fetch_array($queryId))
                  <div id="containerTableSearch">
                   
                     
-                    <table id="table2" >
+                    <table class="table2" >
                  
                   
                   <?php 
@@ -200,11 +200,12 @@ while($rec=mysqli_fetch_array($queryId))
                           
                         </div>
                		 </td>        
-                      <td><span class="descrip">My name is :</span></br><?php echo "$firstName $lastName"?></td>
-                      <td><span class="descrip">I speak :</span></br><?=$language?></td>
-                      <td><span class="descrip">I am from :</span></br><?=$country?></td>
-                      <td><span class="descrip">And my city is:</span></br><?=$city?></td>
-                      <td><span class="descrip">Something About me :</span></br><?=$message?></td>
+                      <td style="margin-left: 10px;margin-right: 25px;padding-right: 25px;">
+                      <span class="descrip">My name is</span></br><?php echo "$firstName $lastName"?></td>
+                      <td><span class="descrip">I speak</span></br><?=$language?></td>
+                      <td><span class="descrip">I am from</span></br><?=$country?></td>
+                      <td><span class="descrip">And my city is</span></br><?=$city?></td>
+                      <td><span class="descrip">Something About me</span></br><?=$message?></td>
                       <td><button  name="connectbtn" class="btn btn-warning pull-right senduser" value=<?=$userIdD?>>Connect</button></td>
                     </tr>
                  

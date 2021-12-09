@@ -91,8 +91,7 @@
           <input type="text" id="defaultForm-text" class="form-control validate" name="email" required>
          </div>
          <div class="md-form mb-5">
-           <!-- Here I need to merge the location get from the user "getLocation()" with "getNearPlaces()" -->
-            <a style="cursor: pointer;"onclick="getLocation()">Get my location</a></br> 
+          
          <label data-error="wrong" data-success="right" for="defaultForm-text">Country :</label>
          <select name="countryselect" id="countryselect" class="form-control validate" required>
     	   <option value="" id = "firstOption"></option>

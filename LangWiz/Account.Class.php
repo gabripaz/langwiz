@@ -146,7 +146,7 @@ class Account{
         }
         else return false;
     }
-    
+      
     public function searchUserInformation($connection){
         $userName=$this->userName;
         $sqlStmt="SELECT u.`Username`,u.`UserID`,u.`FName`,u.`LName`,u.`Photo`,u.`EmailAddress`,u.`personalMsg`,l.LangName,lo.Country,lo.City, b.BadgeID,b.BadgeDesc 
